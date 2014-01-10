@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{604B7CAA-6F13-1A50-7CF2-688A788BDF43}</ProjectGuid>
+	<ProjectGuid>{6ACC08F2-79D1-4B86-255C-E89A2C2A58D6}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-UnityScript</AssemblyName>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,9 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\GameClock.js" />
-     <Compile Include="Assets\Scripts\GameCta.js" />
-     <Compile Include="Assets\Scripts\projectile.js" />
+     <Compile Include="Assets\Scripts\GameClock.cs" />
+     <Compile Include="Assets\Scripts\GameCta.cs" />
+     <Compile Include="Assets\Scripts\LevelStatus.cs" />
+     <Compile Include="Assets\Scripts\LevelTime.cs" />
+     <Compile Include="Assets\Scripts\projectile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
