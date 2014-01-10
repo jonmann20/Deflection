@@ -3,13 +3,10 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-	const int dtY = 10;
-	const KeyCode moveUp = KeyCode.W,
-	moveDown = KeyCode.S,
-	spacebar = KeyCode.Space;
+	const int dtY = 15;
 	
-	public GameObject bullet;
-	GameObject projectile;
+	public Rigidbody2D pfBullet;
+
 	
 	void Start () {
 		
@@ -17,25 +14,28 @@ public class Projectile : MonoBehaviour {
 	
 	void Update () {
 		// movement
-		if(Input.GetKey(moveUp)){
+		if(Input.GetKey(KeyCode.W)){
 			// move position
 			rigidbody2D.angularVelocity = dtY;
 		}
-		else if(Input.GetKey(moveDown)){
+		else if(Input.GetKey(KeyCode.S)){
 			// move down
 			rigidbody2D.angularVelocity = -dtY;
 		}
 		else {
 			rigidbody2D.angularVelocity = 0;
 		}
-		
+
 		// shoot
-		if(Input.GetKey(spacebar)){
-			fire();
+		if(Input.GetKeyDown(KeyCode.Space)){
+			fireProjectile();
 		}
 	}
 	
-	void fire(){
-		projectile = (GameObject)Instantiate(bullet);
+	void fireProjectile(){
+		Transform gun = GetComponent<Transform> ();
+		Rigidbody2D projectile = (Rigidbody2D)Instantiate(pfBullet, new Vector2 (gun.position.x, gun.position.y), Quaternion.identity);
+
+		projectile.velocity = new Vector2(4, 3);
 	}
 }

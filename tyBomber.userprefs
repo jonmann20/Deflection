@@ -2,7 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Projectile.cs">
     <Files>
-      <File FileName="Assets\Scripts\Projectile.cs" Line="10" Column="2" />
+      <File FileName="Assets\Scripts\ProjectileFired.cs" Line="10" Column="18" />
+      <File FileName="Assets\Scripts\Projectile.cs" Line="39" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
