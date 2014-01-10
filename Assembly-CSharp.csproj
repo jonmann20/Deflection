@@ -50,7 +50,7 @@
      <Compile Include="Assets\Scripts\GameCta.cs" />
      <Compile Include="Assets\Scripts\LevelStatus.cs" />
      <Compile Include="Assets\Scripts\LevelTime.cs" />
-     <Compile Include="Assets\Scripts\projectile.cs" />
+     <Compile Include="Assets\Scripts\Projectile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

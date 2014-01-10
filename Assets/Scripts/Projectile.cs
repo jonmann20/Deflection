@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour {
+public class projectile : MonoBehaviour {
 
-	const int dtY = 10;
+    const int dtY = 10;
 	const KeyCode moveUp = KeyCode.W,
-	moveDown = KeyCode.S,
-	spacebar = KeyCode.Space;
-	
-	public GameObject bullet;
-	GameObject projectile;
-	
+	              moveDown = KeyCode.S,
+	              spacebar = KeyCode.Space;
+
+    public GameObject bullet;
+    GameObject projectile;
+
 	void Start () {
-		
-	}
 	
+	}
+
 	void Update () {
 		// movement
 		if(Input.GetKey(moveUp)){
@@ -34,8 +34,8 @@ public class Projectile : MonoBehaviour {
 			fire();
 		}
 	}
-	
+
 	void fire(){
-		projectile = (GameObject)Instantiate(bullet);
+        projectile = (GameObject)Instantiate(bullet);
 	}
 }
