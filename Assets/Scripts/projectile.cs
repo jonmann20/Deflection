@@ -3,27 +3,39 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-	const int dtY = 15;
-	
+	const int dtTheta = 2;
+	int theta = 0;
+	Vector3 initPos;
 	public Rigidbody2D pfBullet;
 
-	
+
 	void Start () {
-		
+		initPos = transform.position;
 	}
 	
 	void Update () {
 		// movement
-		if(Input.GetKey(KeyCode.W)){
-			// move position
-			rigidbody2D.angularVelocity = dtY;
+		if(Input.GetKey(KeyCode.W)){			// up
+			if(theta < 38){
+				transform.RotateAround(
+					new Vector3(initPos.x - renderer.bounds.size.x/2, initPos.y),
+					Vector3.forward,
+					dtTheta
+				);
+
+				theta += dtTheta;
+			}
 		}
-		else if(Input.GetKey(KeyCode.S)){
-			// move down
-			rigidbody2D.angularVelocity = -dtY;
-		}
-		else {
-			rigidbody2D.angularVelocity = 0;
+		else if(Input.GetKey(KeyCode.S)){		// down
+			if(theta > -38){
+				transform.RotateAround(
+					new Vector3(initPos.x - renderer.bounds.size.x/2, initPos.y),
+					Vector3.forward,
+					-dtTheta
+				);
+
+				theta -= dtTheta;
+			}
 		}
 
 		// shoot
@@ -33,9 +45,11 @@ public class Projectile : MonoBehaviour {
 	}
 	
 	void fireProjectile(){
-		Transform gun = GetComponent<Transform> ();
-		Rigidbody2D projectile = (Rigidbody2D)Instantiate(pfBullet, new Vector2 (gun.position.x, gun.position.y), Quaternion.identity);
+		Rigidbody2D projectile = (Rigidbody2D)Instantiate(pfBullet, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
 
-		projectile.velocity = new Vector2(4, 3);
+		float rad = theta * Mathf.Deg2Rad;
+		float y = 4 * Mathf.Tan (rad);
+
+		projectile.velocity = new Vector2(4, y);
 	}
 }

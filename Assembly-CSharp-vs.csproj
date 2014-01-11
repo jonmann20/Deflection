@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\GameClock.cs" />
      <Compile Include="Assets\Scripts\GameCta.cs" />
+     <Compile Include="Assets\Scripts\LevelLogic.cs" />
      <Compile Include="Assets\Scripts\LevelStatus.cs" />
      <Compile Include="Assets\Scripts\LevelTime.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />

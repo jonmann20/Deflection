@@ -2,24 +2,24 @@
 using System.Collections;
 
 public class GameClock : MonoBehaviour {
-
-	//GameClock gameClock;
+	
 	float totalTime;
 	int h, m, s;
 	string hr, min, sec;
 
+	public static string strTime;
+
 	void Start () {
-		//gameClock = GetComponent(GameClock);
 		totalTime = 0.0f;
 	}
 
 	void Update () {
 		totalTime += Time.deltaTime;
 
-		getTime();
+		updateTimeDisplay();
 	}
 
-	void getTime(){
+	void updateTimeDisplay(){
 		h = (int)(totalTime / 3600);
 		m = (int)(totalTime / 60);
 		s = (int)(totalTime % 60);
@@ -28,6 +28,7 @@ public class GameClock : MonoBehaviour {
 		min = ((m < 10) ? "0" : "") + m.ToString();
 		sec = ((s < 10) ? "0" : "") + s.ToString();
 		
-		GetComponent<TextMesh>().text = hr + ':' + min + ':' + sec;
+		strTime = hr + ':' + min + ':' + sec;
+		GetComponent<TextMesh> ().text = strTime;
 	}
 }

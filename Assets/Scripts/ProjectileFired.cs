@@ -2,18 +2,17 @@
 using System.Collections;
 
 public class ProjectileFired : MonoBehaviour {
-	
-	void Start () {
-	
-	}
 
-	void Update () {
+	public static int housesDestroyed = 0;
 
-	}
-	
 	void OnCollisionEnter2D(Collision2D col){
 		if (col.gameObject.tag == "house") {
 			Destroy (col.gameObject);
+			++housesDestroyed;
 		}
+	}
+
+	void OnBecameInvisible(){
+		Destroy (gameObject);
 	}
 }

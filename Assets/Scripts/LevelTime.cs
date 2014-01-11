@@ -8,6 +8,6 @@ public class LevelTime : MonoBehaviour {
 	}
 	
 	void Update () {
-		GetComponent<TextMesh>().text = "win";
+		GetComponent<TextMesh>().text = GameClock.strTime;
 	}
 }
