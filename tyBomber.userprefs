@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\projectile.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameClock.js">
     <Files>
-      <File FileName="Assets\Scripts\projectile.js" Line="4" Column="24" />
+      <File FileName="Assets\Scripts\projectile.js" Line="30" Column="2" />
+      <File FileName="Assets\Scripts\GameClock.js" Line="7" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
