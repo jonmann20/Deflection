@@ -14,5 +14,6 @@ public class ProjectileFired : MonoBehaviour {
 
 	void OnBecameInvisible(){
 		Destroy (gameObject);
+		LevelLogic.endTurn ();
 	}
 }
