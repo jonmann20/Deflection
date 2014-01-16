@@ -8,13 +8,13 @@ public enum Dir {UP, DOWN};
 public class BattleController : MonoBehaviour {
 
 	public GameObject sun;
-	public GameObject sunLBound;
-	public GameObject sunRBound;
+	//public GameObject sunLBound;
+	//public GameObject sunRBound;
 
 	public static BattleController that;
 	public static Turn turn = Turn.PLAYER;
-	public static int playerHousesDestroyed = 0;
-	public static int opponentHousesDestroyed = 0;
+	public static int playerCubesDestroyed = 0;
+	public static int opponentCubesDestroyed = 0;
 	public static string winLossStatus = "";
 	
 	bool doLerp = false;
@@ -28,11 +28,11 @@ public class BattleController : MonoBehaviour {
 	
 	void Update () {
 		// battle over
-		if(opponentHousesDestroyed >= 3) {
+		if(opponentCubesDestroyed >= 3) {
 			winLossStatus = "win";
 			Application.LoadLevel("end");
 		}
-		else if(playerHousesDestroyed >= 3){
+		else if(playerCubesDestroyed >= 3){
 			winLossStatus = "lose";
 			Application.LoadLevel("end");
 		}
@@ -44,11 +44,11 @@ public class BattleController : MonoBehaviour {
 
 			if(turn == Turn.PLAYER){
 				turn = Turn.OPPONENT;
-				MoveObject(that.sun.transform, that.sunLBound.transform.position, that.sunRBound.transform.position, 2f);
+				//MoveObject(that.sun.transform, that.sunLBound.transform.position, that.sunRBound.transform.position, 2f);
 			}
 			else {
 				turn = Turn.PLAYER;
-				MoveObject(that.sun.transform, that.sunRBound.transform.position, that.sunLBound.transform.position, 2f);
+				//MoveObject(that.sun.transform, that.sunRBound.transform.position, that.sunLBound.transform.position, 2f);
 			}
 
 			doLerp = false;

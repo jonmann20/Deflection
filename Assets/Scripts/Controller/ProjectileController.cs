@@ -3,23 +3,25 @@ using System.Collections;
 
 public class ProjectileController : MonoBehaviour {
 
-	void OnTriggerEnter2D(Collider2D col){
+	void OnCollisionEnter(Collision col){
+		print(BattleController.turn);
+
 		if ((BattleController.turn == Turn.PLAYER) &&
-		    (col.gameObject.tag == "opponentHouse")
+		    (col.gameObject.tag == "opponentCube")
 	    ){
-			Destroy (col.gameObject);
-			++BattleController.opponentHousesDestroyed;
+			Destroy(col.gameObject);
+			++BattleController.opponentCubesDestroyed;
 		}
 		else if((BattleController.turn == Turn.OPPONENT) && 
-		        (col.gameObject.tag == "playerHouse")
+		        (col.gameObject.tag == "playerCube")
         ){
-			Destroy (col.gameObject);
-			++BattleController.playerHousesDestroyed;
+			Destroy(col.gameObject);
+			++BattleController.playerCubesDestroyed;
 		}
 	}
 	
 	void OnBecameInvisible(){
-		Destroy (gameObject);
+		Destroy(gameObject);
 		BattleController.endTurn ();
 	}
 }
