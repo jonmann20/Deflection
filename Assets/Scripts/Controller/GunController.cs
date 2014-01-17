@@ -5,6 +5,7 @@ public class GunController : MonoBehaviour {
 
 	public Rigidbody pfProjectile;
 	public bool isPlayer;
+	public static bool allowFire = true;
 
 	Vector3 initPos;
 	float halfW;
@@ -17,7 +18,6 @@ public class GunController : MonoBehaviour {
 
 	void Start(){
 		initPos = transform.position;
-
 		halfW = renderer.bounds.size.x/2;
 
 		if(isPlayer){
@@ -31,8 +31,6 @@ public class GunController : MonoBehaviour {
 			minDeg = 261;
 			maxDeg = 321;
 		}
-
-		print(transform.eulerAngles.z);
 	}
 
 	public void moveGun(Dir dir){
@@ -52,6 +50,12 @@ public class GunController : MonoBehaviour {
 	}
 
 	public void fireProjectile(){
+		if(!GunController.allowFire){
+			return;
+		}
+
+		GunController.allowFire = false;
+
 		Vector3 pos = new Vector3(transform.position.x - halfW*2, transform.position.y + renderer.bounds.size.y, transform.position.z);
 		Rigidbody projectile = Instantiate(pfProjectile, pos, transform.rotation) as Rigidbody;
 
