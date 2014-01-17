@@ -4,7 +4,7 @@ using System.Collections;
 public class ProjectileController : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col){
-		print(BattleController.turn);
+		//print(BattleController.turn);
 
 		if ((BattleController.turn == Turn.PLAYER) &&
 		    (col.gameObject.tag == "opponentCube")

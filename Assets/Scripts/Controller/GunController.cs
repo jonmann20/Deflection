@@ -6,61 +6,57 @@ public class GunController : MonoBehaviour {
 	public Rigidbody pfProjectile;
 	public bool isPlayer;
 
-	const int DEGREE_RANGE = 38;
-	const int DT_THETA = 2;
-	int SPEED = -1800;
-	float theta = 0, dtMove = 0;
-
 	Vector3 initPos;
-	float halfW, halfH;
+	float halfW;
+
+	const int DT_THETA = 2;
+	int minDeg, maxDeg;
+	float SPEED = -140f;
+	float dtMove = 0;
 
 
 	void Start(){
 		initPos = transform.position;
 
 		halfW = renderer.bounds.size.x/2;
-		halfH = renderer.bounds.size.y/2;
+
 		if(isPlayer){
 			halfW *= -1;
 			SPEED *= -1;
+
+			minDeg = 210;
+			maxDeg = 261;
 		}
+		else {
+			minDeg = 261;
+			maxDeg = 321;
+		}
+
+		print(transform.eulerAngles.z);
 	}
 
 	public void moveGun(Dir dir){
-		if(dir == Dir.UP){
-			if(theta > DEGREE_RANGE){
-				return;
-			}
+		dtMove = (dir == Dir.UP) ? DT_THETA : -DT_THETA;
 
-			dtMove = DT_THETA;
+		if(transform.eulerAngles.z + dtMove > minDeg && transform.eulerAngles.z + dtMove < maxDeg){
+			transform.RotateAround(
+				new Vector3(initPos.x + halfW, initPos.y - renderer.bounds.size.y/2),
+				Vector3.forward,
+				dtMove
+			);
 		}
-		else {
-			if(theta < -DEGREE_RANGE){
-				return;
-			}
+	}
 
-			dtMove = -DT_THETA;
-		}
-
-		transform.RotateAround(
-			new Vector3(initPos.x + halfW, initPos.y - halfH),
-			Vector3.forward,
-			dtMove
-		);
-
-		theta += dtMove;
+	float theta2y(){
+		return SPEED * Mathf.Tan(transform.eulerAngles.z * Mathf.Deg2Rad);
 	}
 
 	public void fireProjectile(){
-		Rigidbody projectile = (Rigidbody)Instantiate(
-			pfProjectile,
-			new Vector3(transform.position.x + renderer.bounds.size.x, transform.position.y + renderer.bounds.size.y, transform.position.z), 
-		    Quaternion.identity
-		);
+		Vector3 pos = new Vector3(transform.position.x - halfW*2, transform.position.y + renderer.bounds.size.y, transform.position.z);
+		Rigidbody projectile = Instantiate(pfProjectile, pos, transform.rotation) as Rigidbody;
 
-		float rad = theta * Mathf.Deg2Rad;
-		float y = SPEED * Mathf.Tan(rad);
+		float y = theta2y();
 
-		projectile.AddForce(new Vector3(SPEED, y, 0));
+		projectile.velocity = new Vector3(SPEED, y, 0);
 	}
 }

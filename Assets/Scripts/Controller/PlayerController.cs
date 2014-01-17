@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-		print (BattleController.turn);
+		//print (BattleController.turn);
 
 		if(BattleController.turn != Turn.PLAYER){
 			return;
