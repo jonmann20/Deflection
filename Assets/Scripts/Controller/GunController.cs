@@ -2,9 +2,10 @@
 using System.Collections;
 
 public abstract class GunController : MonoBehaviour {
-	public Gun gun;
-	public GunController(Gun g){
-		gun = g;
+	protected Gun gun;
+
+	void Awake(){
+		gun = GetComponent<Gun>();
 	}
 
 	public abstract void CheckInput();

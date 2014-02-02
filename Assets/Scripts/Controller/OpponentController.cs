@@ -3,8 +3,6 @@ using System.Collections;
 
 public class OpponentController : GunController {
 
-	public OpponentController(Gun g) : base(g){}
-
 	public override void CheckInput() {
 		// movement
 		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)){
