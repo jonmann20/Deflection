@@ -1,30 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : GunController {
 
-	GunController gun;
+	public PlayerController(Gun g) : base(g){}
 
-	void Start(){
-		gun = (GunController)gameObject.GetComponent(typeof(GunController));
-	}
-
-	void Update() {
-		if(BattleController.turn != Turn.PLAYER){
-			return;
-		}
-
+	public override void CheckInput() {
 		// movement
 		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)){
-			gun.moveGun(Dir.UP);
+			gun.move(Dir.UP);
 		}
 		else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)){
-			gun.moveGun(Dir.DOWN);
+			gun.move(Dir.DOWN);
 		}
 		
 		// shoot
 		if(Input.GetKeyDown(KeyCode.Space)){
-			gun.fireProjectile();
+			gun.shoot();
 		}
 	}
 }

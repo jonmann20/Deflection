@@ -46,15 +46,17 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Scripts\ClockView.cs" />
      <Compile Include="Assets\Scripts\Controller\GunController.cs" />
      <Compile Include="Assets\Scripts\Controller\OpponentController.cs" />
      <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\Controller\ProjectileController.cs" />
-     <Compile Include="Assets\Scripts\Controller\Scenes\BattleCompleteController.cs" />
-     <Compile Include="Assets\Scripts\Controller\Scenes\BattleController.cs" />
-     <Compile Include="Assets\Scripts\Controller\TextCtaController.cs" />
-     <Compile Include="Assets\Scripts\View\ClockView.cs" />
+     <Compile Include="Assets\Scripts\Gun.cs" />
+     <Compile Include="Assets\Scripts\Scenes\BattleCompleteController.cs" />
+     <Compile Include="Assets\Scripts\Scenes\BattleController.cs" />
+     <Compile Include="Assets\Scripts\TextCtaController.cs" />
      <None Include="Assets\Fonts\LICENSE.txt" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Fonts\FONTLOG.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

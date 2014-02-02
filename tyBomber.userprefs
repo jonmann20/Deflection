@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Controller\ProjectileController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Gun.cs">
     <Files>
-      <File FileName="Assets\Scripts\Controller\GunController.cs" Line="16" Column="19" />
-      <File FileName="Assets\Scripts\Controller\PlayerController.cs" Line="24" Column="3" />
-      <File FileName="Assets\Scripts\Controller\Scenes\BattleController.cs" Line="14" Column="2" />
-      <File FileName="Assets\Scripts\Controller\ProjectileController.cs" Line="10" Column="27" />
+      <File FileName="Assets\Scripts\Gun.cs" Line="11" Column="18" />
+      <File FileName="Assets\Scripts\Controller\GunController.cs" Line="8" Column="3" />
+      <File FileName="Assets\Scripts\Scenes\BattleController.cs" Line="6" Column="61" />
+      <File FileName="Assets\Scripts\Bullet.cs" Line="6" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
