@@ -13,11 +13,10 @@ public class Gun : MonoBehaviour {
 	
 	const int DT_THETA = 1;
 	int minDeg, maxDeg;
-	float BULLET_SPEED = -140f;
 	float dtMove = 0;
-	
-	string angleStr;
-	float angle;
+
+	string angleStr, speedStr;
+	float angle, bulletSpeed, normalizedSpeed = 140;
 
 	void Awake(){
 		bulletPrefab = Resources.Load<Rigidbody>("Bullet");
@@ -28,18 +27,21 @@ public class Gun : MonoBehaviour {
 		else {
 			controller = gameObject.AddComponent<OpponentController>();
 		}
-
-		angleStr = transform.eulerAngles.z.ToString();
-		angle = transform.eulerAngles.z;
 	}
 
 	void Start(){
 		initPos = transform.position;
 		halfW = renderer.bounds.size.x/2;
+
+		angleStr = transform.eulerAngles.z.ToString();
+		angle = transform.eulerAngles.z;
 		
+		speedStr = normalizedSpeed.ToString();
+		bulletSpeed = -normalizedSpeed;
+
 		if(isPlayer){
 			halfW *= -1;
-			BULLET_SPEED *= -1;
+			bulletSpeed *= -1;
 			
 			minDeg = 210;
 			maxDeg = 261;
@@ -53,14 +55,24 @@ public class Gun : MonoBehaviour {
 	void Update(){
 		controller.CheckInput();
 	}
+
+	#region GUI
 	
 	void OnGUI(){
-		// current angle
-		GUI.Box(new Rect(3, 3, 160, 23), "Current angle: " + transform.eulerAngles.z.ToString());
+		angleGUI();
+		speedGUI();
 
+		// Indicate turn
+		GUI.Box(new Rect(Screen.width/1.5f, 3, 162, 23), isPlayer ? "Player's Turn" : "Opponent's Turn");
+	}
+
+	void angleGUI(){
+		// current angle
+		GUI.Box(new Rect(3, 3, 162, 23), "Current angle: " + transform.eulerAngles.z.ToString());
+		
 		// new angle
 		angleStr = GUI.TextField(new Rect(3, 30, 30, 20), angleStr, 3);
-
+		
 		if (GUI.Button (new Rect (35, 30, 130, 20), "Click to set angle")) {
 			if(float.TryParse(angleStr, out angle)){
 				float newAngle = angle - transform.eulerAngles.z;
@@ -72,7 +84,36 @@ public class Gun : MonoBehaviour {
 		}
 	}
 
-	#region Actions
+	void speedGUI(){
+		// current speed
+		GUI.Box(new Rect(200, 3, 162, 23), "Current speed: " + normalizedSpeed.ToString());
+		
+		// new speed
+		speedStr = GUI.TextField(new Rect(200, 30, 33, 20), speedStr, 4);
+		
+		if (GUI.Button (new Rect (236, 30, 126, 20), "Click to set speed")) {
+			if(float.TryParse(speedStr, out normalizedSpeed)){
+				// success
+				if(isPlayer){
+					bulletSpeed = normalizedSpeed;
+				}
+				else {
+					bulletSpeed = -normalizedSpeed;
+				}
+				
+				print ("b: " + bulletSpeed);
+			}
+			else {
+				// GUI.Label("not a #");
+			}
+		}
+	}
+
+	#endregion GUI
+
+
+	#region Public Actions
+
 	public void move(Dir dir){
 		dtMove = (dir == Dir.UP) ? DT_THETA : -DT_THETA;
 		rotateTo(dtMove);
@@ -87,11 +128,15 @@ public class Gun : MonoBehaviour {
 
 		float y = theta2y();
 		
-		projectile.velocity = new Vector3(BULLET_SPEED, y, 0);
+		projectile.velocity = new Vector3(bulletSpeed, y, 0);
 
 		BattleController.that.endTurn();
 	}
-	#endregion Actions
+
+	#endregion Public Actions
+
+
+	#region Utils
 
 	void rotateTo(float dtAngle){
 		if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg){
@@ -107,7 +152,9 @@ public class Gun : MonoBehaviour {
 	}
 
 	float theta2y(){
-		return BULLET_SPEED * Mathf.Tan(transform.eulerAngles.z * Mathf.Deg2Rad);
+		return bulletSpeed * Mathf.Tan(transform.eulerAngles.z * Mathf.Deg2Rad);
 	}
+
+	#endregion Utils
 	
 }

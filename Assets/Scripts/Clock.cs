@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClockView : MonoBehaviour {
+public class Clock : MonoBehaviour {
 
 	float totalTime;
 	int h, m, s;
@@ -15,7 +15,9 @@ public class ClockView : MonoBehaviour {
 	
 	void Update() {
 		totalTime += Time.deltaTime;
-		
+	}
+
+	void OnGUI(){
 		updateTimeDisplay();
 	}
 	
@@ -29,6 +31,7 @@ public class ClockView : MonoBehaviour {
 		sec = ((s < 10) ? "0" : "") + s.ToString();
 		
 		strTime = hr + ':' + min + ':' + sec;
-		GetComponent<TextMesh>().text = strTime;
+	
+		GUI.Box(new Rect(Screen.width/2 - 162/2, 3, 162, 23), strTime);
 	}
 }

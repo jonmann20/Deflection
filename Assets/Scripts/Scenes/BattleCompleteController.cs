@@ -9,7 +9,7 @@ public class BattleCompleteController : MonoBehaviour {
 	
 	void Start () {
 		status.GetComponent<TextMesh>().text = "You " + BattleController.winLossStatus;
-		totalTime.GetComponent<TextMesh>().text = ClockView.strTime;
+		totalTime.GetComponent<TextMesh>().text = Clock.strTime;
 	}
 
 	void Update () {
