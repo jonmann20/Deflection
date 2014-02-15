@@ -1,0 +1,11 @@
+C:\git\tyBomber\Temp\bin\Debug\Assembly-CSharp.dll
+C:\git\tyBomber\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\git\tyBomber\Temp\bin\Debug\UnityEditor.dll
+C:\git\tyBomber\Temp\bin\Debug\UnityEngine.dll
+C:\git\tyBomber\Temp\bin\Debug\Mono.Cecil.dll
+C:\git\tyBomber\Temp\bin\Debug\nunit.framework.dll
+C:\git\tyBomber\Temp\bin\Debug\Unity.DataContract.dll
+C:\git\tyBomber\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\git\tyBomber\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+C:\git\tyBomber\obj\Debug\Assembly-CSharp.dll
+C:\git\tyBomber\obj\Debug\Assembly-CSharp.pdb

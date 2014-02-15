@@ -26,6 +26,8 @@ public class Gun : MonoBehaviour {
 		}
 		else {
 			controller = gameObject.AddComponent<OpponentController>();
+            this.enabled = false;
+            
 		}
 	}
 
@@ -91,7 +93,7 @@ public class Gun : MonoBehaviour {
 		// new speed
 		speedStr = GUI.TextField(new Rect(200, 30, 33, 20), speedStr, 4);
 		
-		if (GUI.Button (new Rect (236, 30, 126, 20), "Click to set speed")) {
+		if(GUI.Button (new Rect (236, 30, 126, 20), "Click to set speed")) {
 			if(float.TryParse(speedStr, out normalizedSpeed)){
 				// success
 				if(isPlayer){
@@ -130,7 +132,7 @@ public class Gun : MonoBehaviour {
 		
 		projectile.velocity = new Vector3(bulletSpeed, y, 0);
 
-		BattleController.that.endTurn();
+		Battle.that.endTurn();
 	}
 
 	#endregion Public Actions
@@ -139,16 +141,16 @@ public class Gun : MonoBehaviour {
 	#region Utils
 
 	void rotateTo(float dtAngle){
-		if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg){
+		//if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg){
 			transform.RotateAround(
 				new Vector3(initPos.x + halfW, initPos.y - renderer.bounds.size.y/2),
 				Vector3.forward,
 				dtAngle
 			);
-		}
-		else {
+		//}
+		//else {
 			// GUI.Label("outside of range");
-		}
+		//}
 	}
 
 	float theta2y(){

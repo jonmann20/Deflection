@@ -21,10 +21,10 @@ public class Bullet : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision col){
 		if(isPlayer){
-			checkCollision(col, "opponentCube", ref BattleController.opponentCubesDestroyed);
+			checkCollision(col, "opponentCube", ref Battle.opponentCubesDestroyed);
 		}
 		else {
-			checkCollision(col, "playerCube", ref BattleController.playerCubesDestroyed);
+			checkCollision(col, "playerCube", ref Battle.playerCubesDestroyed);
 		}
 		
 		Destroy(gameObject, 1.9f);
@@ -35,6 +35,6 @@ public class Bullet : MonoBehaviour {
 	}
 	
 	void OnDestroy(){
-		//BattleController.that.endTurn();
+		//Battle.that.endTurn();
 	}
 }

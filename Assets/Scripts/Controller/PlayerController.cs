@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : GunController {
 
-	public override void CheckInput() {
+	public override void CheckInput(){
 		// movement
 		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)){
 			gun.move(Dir.UP);
