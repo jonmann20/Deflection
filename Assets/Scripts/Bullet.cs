@@ -5,6 +5,8 @@ public class Bullet : MonoBehaviour {
 	bool isPlayer;
 	public void init(bool b){
 		isPlayer = b;
+
+        // TODO: Destroy if no collision
 	}
 
 	void checkCollision(Collision col, string cubeTag, ref int cubesDestroyed){
@@ -12,7 +14,7 @@ public class Bullet : MonoBehaviour {
 			Vector3 hit = col.contacts[0].normal;
 			
 			if(hit.y > 0.2f){ // top
-				Destroy(gameObject);
+				Destroy(gameObject);    // TODO: delay end turn
 				Destroy(col.gameObject);
 				++cubesDestroyed;
 			}
@@ -27,14 +29,10 @@ public class Bullet : MonoBehaviour {
 			checkCollision(col, "playerCube", ref Battle.playerCubesDestroyed);
 		}
 		
-		Destroy(gameObject, 1.9f);
-	}
-	
-	void OnBecameInvisible(){
-		Destroy(gameObject);
+		Destroy(gameObject, 1.5f);
 	}
 	
 	void OnDestroy(){
-		//Battle.that.endTurn();
+		Battle.that.endTurn();
 	}
 }

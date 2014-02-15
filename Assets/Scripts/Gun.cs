@@ -6,7 +6,7 @@ public class Gun : MonoBehaviour {
 
 	Rigidbody bulletPrefab;
 
-	GunController controller;
+	public GunController controller;
 	
 	Vector3 initPos;
 	float halfW;
@@ -16,7 +16,8 @@ public class Gun : MonoBehaviour {
 	float dtMove = 0;
 
 	string angleStr, speedStr;
-	float angle, bulletSpeed, normalizedSpeed = 240;
+	float angle, bulletSpeed;
+    public float normalizedSpeed = 240;
 
 	void Awake(){
 		bulletPrefab = Resources.Load<Rigidbody>("Bullet");
@@ -26,16 +27,13 @@ public class Gun : MonoBehaviour {
 		}
 		else {
 			controller = gameObject.AddComponent<OpponentController>();
-            this.enabled = false;
-            
+            controller.enabled = false;
 		}
-	}
 
-	void Start(){
 		initPos = transform.position;
 		halfW = renderer.bounds.size.x/2;
 
-		angleStr = transform.eulerAngles.z.ToString();
+		angleStr = "45";
 		angle = transform.eulerAngles.z;
 		
 		speedStr = normalizedSpeed.ToString();
@@ -52,10 +50,14 @@ public class Gun : MonoBehaviour {
 			minDeg = 0;
 			maxDeg = 90;
 		}
+
+        setRandomAngle();
 	}
 
 	void Update(){
-		controller.CheckInput();
+        if(controller.enabled){
+            controller.CheckInput();
+        }
 	}
 
 	#region GUI
@@ -69,21 +71,51 @@ public class Gun : MonoBehaviour {
 	}
 
 	void angleGUI(){
-		// current angle
-		GUI.Box(new Rect(3, 3, 162, 23), "Current angle: " + transform.eulerAngles.z.ToString());
+
 		
 		// new angle
 		angleStr = GUI.TextField(new Rect(3, 30, 30, 20), angleStr, 3);
 		
 		if (GUI.Button (new Rect (35, 30, 130, 20), "Click to set angle")) {
 			if(float.TryParse(angleStr, out angle)){
-				float newAngle = angle - transform.eulerAngles.z;
-				rotateTo(newAngle);
+				float dtAngle = 0;
+
+                if(isPlayer) {
+                    float tmp = 360 - angle;
+
+                    //print("old: " + transform.eulerAngles.z);
+                   // print("new: " + tmp);
+
+                    if(tmp < transform.eulerAngles.z){
+                        dtAngle = tmp - transform.eulerAngles.z;
+                    }
+                    else if(tmp > transform.eulerAngles.z){
+                        dtAngle = tmp - transform.eulerAngles.z;
+                    }
+                } 
+                else {
+                    dtAngle = angle;
+                }
+
+                //print("dt: " + dtAngle);
+                rotateTo(dtAngle);
 			}
 			else {
 				// GUI.Label("not a #");
 			}
 		}
+
+
+        // current angle
+        float fixedAngle;
+        if(isPlayer) {
+            fixedAngle = (360 - transform.eulerAngles.z);
+        } else {
+            fixedAngle = transform.eulerAngles.z;
+        }
+        fixedAngle = Mathf.Floor(fixedAngle);
+
+        GUI.Box(new Rect(3, 3, 162, 23), "Current angle: " + fixedAngle.ToString());
 	}
 
 	void speedGUI(){
@@ -115,29 +147,38 @@ public class Gun : MonoBehaviour {
 	#region Public Actions
 
 	public void move(Dir dir){
+        // TODO: if < 1 degree snap to target
+
 		dtMove = (dir == Dir.UP) ? DT_THETA : -DT_THETA;
 		rotateTo(dtMove);
 	}
 
 	public void shoot(){
-		Vector3 pos = new Vector3(transform.position.x - halfW*2, transform.position.y + renderer.bounds.size.y, transform.position.z);
+        float bulletSizeX = isPlayer ? -2.5f : 2.5f;
+
+        Vector3 pos = new Vector3(transform.position.x - halfW + bulletSizeX, transform.position.y + renderer.bounds.size.y/2, transform.position.z);
 		Rigidbody projectile = Instantiate(bulletPrefab, pos, transform.rotation) as Rigidbody;
 
 		Bullet b = projectile.GetComponent<Bullet>();
-		b.init(isPlayer);
+        b.init(isPlayer);
 
         float x = getBulletVelocityX();
 		float y = getBulletVelocityY();
 
 		projectile.velocity = new Vector3(x, y, 0);
-
-		Battle.that.endTurn();
+        controller.enabled = false;
+        print(controller.enabled);
 	}
 
 	#endregion Public Actions
 
 
 	#region Utils
+
+    void setRandomAngle() {
+        // starts at 270 or 30 by default
+        rotateTo(Random.Range(-30, 60));
+    }
 
 	void rotateTo(float dtAngle){
 		if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg){

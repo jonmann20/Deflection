@@ -3,7 +3,8 @@ using System.Collections;
 
 // TODO: move to global file
 public enum Turn { PLAYER, OPPONENT };
-public enum Dir { EMPTY, UP, DOWN, LEFT, RIGHT, TOP, BOTTOM };
+public enum Dir { NONE, UP, DOWN, LEFT, RIGHT, TOP, BOTTOM };
+public enum Difficulty { EASY, MEDIUM, HARD };
 
 public class Utils : MonoBehaviour {
     public static Utils that;

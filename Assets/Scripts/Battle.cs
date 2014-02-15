@@ -32,14 +32,17 @@ public class Battle : MonoBehaviour {
         if(turn == Turn.PLAYER){
             turn = Turn.OPPONENT;
 
-            player.GetComponent<Gun>().enabled = false;
-            opponent.GetComponent<Gun>().enabled = true;
+            opponent.GetComponent<Gun>().controller.enabled = true;
         } 
         else {
             turn = Turn.PLAYER;
 
-            player.GetComponent<Gun>().enabled = true;
-            opponent.GetComponent<Gun>().enabled = false;
+            player.GetComponent<Gun>().controller.enabled = true;
         }
+    }
+
+    IEnumerator startTurn(Gun g) {
+        yield return new WaitForSeconds(3f);
+        g.enabled = true;
     }
 }
