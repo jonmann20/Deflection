@@ -16,7 +16,7 @@ public class Gun : MonoBehaviour {
 	float dtMove = 0;
 
 	string angleStr, speedStr;
-	float angle, bulletSpeed, normalizedSpeed = 140;
+	float angle, bulletSpeed, normalizedSpeed = 240;
 
 	void Awake(){
 		bulletPrefab = Resources.Load<Rigidbody>("Bullet");
@@ -45,12 +45,12 @@ public class Gun : MonoBehaviour {
 			halfW *= -1;
 			bulletSpeed *= -1;
 			
-			minDeg = 210;
-			maxDeg = 261;
+			minDeg = 270;
+			maxDeg = 360;
 		}
 		else {
-			minDeg = 261;
-			maxDeg = 321;
+			minDeg = 0;
+			maxDeg = 90;
 		}
 	}
 
@@ -102,12 +102,10 @@ public class Gun : MonoBehaviour {
 				else {
 					bulletSpeed = -normalizedSpeed;
 				}
-				
-				print ("b: " + bulletSpeed);
 			}
-			else {
+			//else {
 				// GUI.Label("not a #");
-			}
+			//}
 		}
 	}
 
@@ -126,11 +124,12 @@ public class Gun : MonoBehaviour {
 		Rigidbody projectile = Instantiate(bulletPrefab, pos, transform.rotation) as Rigidbody;
 
 		Bullet b = projectile.GetComponent<Bullet>();
-		b.init (isPlayer);
+		b.init(isPlayer);
 
-		float y = theta2y();
-		
-		projectile.velocity = new Vector3(bulletSpeed, y, 0);
+        float x = getBulletVelocityX();
+		float y = getBulletVelocityY();
+
+		projectile.velocity = new Vector3(x, y, 0);
 
 		Battle.that.endTurn();
 	}
@@ -141,20 +140,46 @@ public class Gun : MonoBehaviour {
 	#region Utils
 
 	void rotateTo(float dtAngle){
-		//if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg){
+		if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg){
 			transform.RotateAround(
 				new Vector3(initPos.x + halfW, initPos.y - renderer.bounds.size.y/2),
 				Vector3.forward,
 				dtAngle
 			);
-		//}
+		}
 		//else {
 			// GUI.Label("outside of range");
 		//}
 	}
 
-	float theta2y(){
-		return bulletSpeed * Mathf.Tan(transform.eulerAngles.z * Mathf.Deg2Rad);
+    float getBulletVelocityX(){
+        // angle between the vector and the x-axis
+        float angle = 0;
+
+        if(isPlayer){
+            angle = transform.eulerAngles.z - 270;
+        } 
+        else {
+            angle = 90 - transform.eulerAngles.z;
+        }
+
+        return bulletSpeed * Mathf.Cos(angle * Mathf.Deg2Rad);;
+    }
+
+    float getBulletVelocityY(){
+        // angle between the vector and the y-axis
+        float angle = 0;
+
+        if(isPlayer) {
+            angle = 360 - transform.eulerAngles.z;
+        } 
+        else {
+            angle = transform.eulerAngles.z;
+        }
+
+        float vY = bulletSpeed * Mathf.Cos(angle * Mathf.Deg2Rad);
+
+        return isPlayer ? vY : -vY;
 	}
 
 	#endregion Utils
