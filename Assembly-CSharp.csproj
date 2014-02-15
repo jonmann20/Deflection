@@ -46,18 +46,17 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BattleCompleteController.cs" />
+     <Compile Include="Assets\Scripts\BattleController.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\Clock.cs" />
      <Compile Include="Assets\Scripts\Controller\GunController.cs" />
      <Compile Include="Assets\Scripts\Controller\OpponentController.cs" />
      <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Gun.cs" />
-     <Compile Include="Assets\Scripts\Scenes\BattleCompleteController.cs" />
-     <Compile Include="Assets\Scripts\Scenes\BattleController.cs" />
-     <Compile Include="Assets\Scripts\TextCtaController.cs" />
-     <None Include="Assets\Fonts\LICENSE.txt" />
+     <Compile Include="Assets\Scripts\Title.cs" />
+     <Compile Include="Assets\Scripts\Utils.cs" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
-     <None Include="Assets\Fonts\FONTLOG.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
