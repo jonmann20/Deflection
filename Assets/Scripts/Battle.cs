@@ -19,10 +19,12 @@ public class Battle : MonoBehaviour {
     void Update(){
         // battle over
         if(opponentCubesDestroyed >= 3){
+            turn = Turn.OVER;
             winLossStatus = "win";
             Application.LoadLevel("end");
         } 
         else if(playerCubesDestroyed >= 3){
+            turn = Turn.OVER;
             winLossStatus = "lose";
             Application.LoadLevel("end");
         }
@@ -34,15 +36,15 @@ public class Battle : MonoBehaviour {
 
             opponent.GetComponent<Gun>().controller.enabled = true;
         } 
-        else {
+        else if(turn == Turn.OPPONENT){
             turn = Turn.PLAYER;
 
             player.GetComponent<Gun>().controller.enabled = true;
         }
     }
 
-    IEnumerator startTurn(Gun g) {
-        yield return new WaitForSeconds(3f);
-        g.enabled = true;
-    }
+    //IEnumerator startTurn(Gun g) {
+    //    yield return new WaitForSeconds(3f);
+    //    g.enabled = true;
+    //}
 }

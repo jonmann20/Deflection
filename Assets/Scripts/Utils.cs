@@ -2,7 +2,7 @@
 using System.Collections;
 
 // TODO: move to global file
-public enum Turn { PLAYER, OPPONENT };
+public enum Turn { PLAYER, OPPONENT, OVER };
 public enum Dir { NONE, UP, DOWN, LEFT, RIGHT, TOP, BOTTOM };
 public enum Difficulty { EASY, MEDIUM, HARD };
 

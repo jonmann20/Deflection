@@ -63,11 +63,13 @@ public class Gun : MonoBehaviour {
 	#region GUI
 	
 	void OnGUI(){
-		angleGUI();
-		speedGUI();
+        if(Battle.turn == Turn.PLAYER && isPlayer || Battle.turn == Turn.OPPONENT && !isPlayer){
+            angleGUI();
+            speedGUI();
 
-		// Indicate turn
-		GUI.Box(new Rect(Screen.width/1.5f, 3, 162, 23), isPlayer ? "Player's Turn" : "Opponent's Turn");
+            // Indicate turn
+            GUI.Box(new Rect(Screen.width/1.5f, 3, 162, 23), isPlayer ? "Player's Turn" : "Opponent's Turn");
+        }
 	}
 
 	void angleGUI(){
@@ -167,7 +169,6 @@ public class Gun : MonoBehaviour {
 
 		projectile.velocity = new Vector3(x, y, 0);
         controller.enabled = false;
-        print(controller.enabled);
 	}
 
 	#endregion Public Actions

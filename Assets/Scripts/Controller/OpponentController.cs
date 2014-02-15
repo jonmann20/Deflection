@@ -3,7 +3,7 @@ using System.Collections;
 
 public class OpponentController : GunController {
 
-    public Difficulty difficulty = Difficulty.MEDIUM;
+    public Difficulty difficulty = Difficulty.HARD;
 
     // FOR DEBUGGING: ---user control---
     //public override void CheckInput() {
@@ -18,25 +18,28 @@ public class OpponentController : GunController {
 
     public override void CheckInput() {
         float angle = findBestAngle();
-
+        //print(angle);
         float diff = Mathf.Abs(transform.eulerAngles.z - angle);
-        bool fineTune = (diff < 10);
+        bool coarseTune = (diff <= 10);
+        bool fineTune = (diff <= 5);
 
         //print(diff);
         int numMoves = 0;
 
         switch(difficulty) {
             case Difficulty.EASY:
-                numMoves = fineTune ? 1 : 3;
+                numMoves = fineTune ? 1 : (coarseTune ? 2 : 3);
                 break;
             case Difficulty.MEDIUM:
-                numMoves = fineTune ? 3 : 6;
+                numMoves = fineTune ? 1 : (coarseTune ? 2 : 6);
                 break;
             case Difficulty.HARD:
-                numMoves = fineTune ? 4 : 9;
+                numMoves = fineTune ? 1 : (coarseTune ? 2 : 9);
                 break;
 
         }
+
+        // TODO: move to other size of missing
 
         for(int i=0; i < numMoves; ++i) {
             doMovement(angle);
@@ -58,7 +61,7 @@ public class OpponentController : GunController {
         // theta = 1/2 arcsin(gd / v^2)
 
         // TODO: calculate actual distance dynamically
-        float dist = 510 - (Battle.playerCubesDestroyed * 5);   // player: -255, opp: 255
+        float dist = 498.8f;
 
         float angle = 0.5f * Mathf.Asin((Physics.gravity.magnitude * dist ) / (gun.normalizedSpeed*gun.normalizedSpeed));
         return angle * Mathf.Rad2Deg;

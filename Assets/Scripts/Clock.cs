@@ -31,7 +31,9 @@ public class Clock : MonoBehaviour {
 		sec = ((s < 10) ? "0" : "") + s.ToString();
 		
 		strTime = hr + ':' + min + ':' + sec;
-	
-		GUI.Box(new Rect(Screen.width/2 - 162/2, 3, 162, 23), strTime);
+
+        GUIStyle st = new GUIStyle();
+        st.fontSize = 20;
+        GUI.Box(new Rect(Screen.width/2 - 122/2, 3, 122, 23), strTime, st);
 	}
 }
