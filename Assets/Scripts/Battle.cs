@@ -35,11 +35,13 @@ public class Battle : MonoBehaviour {
             turn = Turn.OPPONENT;
 
             opponent.GetComponent<Gun>().controller.enabled = true;
+			CameraZoom.that.bullet = null;
         } 
         else if(turn == Turn.OPPONENT){
             turn = Turn.PLAYER;
 
             player.GetComponent<Gun>().controller.enabled = true;
+			CameraZoom.that.bullet = null;
         }
     }
 

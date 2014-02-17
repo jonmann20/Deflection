@@ -52,6 +52,7 @@ public class Gun : MonoBehaviour {
 		}
 
         setRandomAngle();
+		setRandomPosition();
 	}
 
 	void Update(){
@@ -125,22 +126,31 @@ public class Gun : MonoBehaviour {
 		GUI.Box(new Rect(200, 3, 162, 23), "Current speed: " + normalizedSpeed.ToString());
 		
 		// new speed
-		speedStr = GUI.TextField(new Rect(200, 30, 33, 20), speedStr, 4);
+		normalizedSpeed = GUI.HorizontalSlider(new Rect(226, 30, 126, 20), normalizedSpeed, 220, 280);
 		
-		if(GUI.Button (new Rect (236, 30, 126, 20), "Click to set speed")) {
-			if(float.TryParse(speedStr, out normalizedSpeed)){
-				// success
-				if(isPlayer){
-					bulletSpeed = normalizedSpeed;
-				}
-				else {
-					bulletSpeed = -normalizedSpeed;
-				}
-			}
-			//else {
-				// GUI.Label("not a #");
-			//}
+		if(isPlayer){
+			bulletSpeed = normalizedSpeed;
 		}
+		else {
+			bulletSpeed = -normalizedSpeed;
+		}
+
+//		speedStr = GUI.TextField(new Rect(200, 30, 33, 20), speedStr, 4);
+//		
+//		if(GUI.Button (new Rect (236, 30, 126, 20), "Click to set speed")) {
+//			if(float.TryParse(speedStr, out normalizedSpeed)){
+//				// success
+//				if(isPlayer){
+//					bulletSpeed = normalizedSpeed;
+//				}
+//				else {
+//					bulletSpeed = -normalizedSpeed;
+//				}
+//			}
+//			//else {
+//				// GUI.Label("not a #");
+//			//}
+//		}
 	}
 
 	#endregion GUI
@@ -161,6 +171,10 @@ public class Gun : MonoBehaviour {
         Vector3 pos = new Vector3(transform.position.x - halfW + bulletSizeX, transform.position.y + renderer.bounds.size.y/2, transform.position.z);
 		Rigidbody projectile = Instantiate(bulletPrefab, pos, transform.rotation) as Rigidbody;
 
+		if(isPlayer){
+			CameraZoom.that.attachCameraToBullet(projectile);
+		}
+
 		Bullet b = projectile.GetComponent<Bullet>();
         b.init(isPlayer);
 
@@ -180,6 +194,12 @@ public class Gun : MonoBehaviour {
         // starts at 270 or 30 by default
         rotateTo(Random.Range(-30, 60));
     }
+
+	void setRandomPosition() {
+		if(!isPlayer){
+			GameObject.Find("Opponent").transform.Translate(Random.Range(-100, 100), 0, 0);
+		}
+	}
 
 	void rotateTo(float dtAngle){
 		if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg){

@@ -40,6 +40,7 @@ public class OpponentController : GunController {
         }
 
         // TODO: move to other size of missing
+		//TODO: have a error float, and random number generator within the error range
 
         for(int i=0; i < numMoves; ++i) {
             doMovement(angle);
