@@ -3,13 +3,14 @@ using System.Collections;
 
 public class CameraZoom : MonoBehaviour {
 
-	public bool zoomOn = true;
+	public static CameraZoom that;
+	bool switchingToZoom = false;
+	//public bool zoomOn = true;
 
 	Camera cam;
 
 	public Rigidbody bullet;
 
-	public static CameraZoom that;
 
 	void Awake(){
 		that = this;
@@ -21,11 +22,10 @@ public class CameraZoom : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update(){
-		cam.fieldOfView = 48;
-		//transform.Translate(-200, 0, 0);
-		print (bullet);
+		//print (bullet);
 
-		if(bullet != null){
+		if(bullet != null && !switchingToZoom){
+			//toggleZoom(true);
 			cam.fieldOfView = 40;
 			transform.position = new Vector3(bullet.transform.position.x, bullet.transform.position.y, -10);
 		}
@@ -33,6 +33,22 @@ public class CameraZoom : MonoBehaviour {
 			cam.fieldOfView = 60;
 			transform.position = new Vector3(0, 100, -10);
 		}
+	}
+
+
+	void toggleZoom(bool turnZoomOn){
+		if(turnZoomOn){
+			print ("moving");
+			switchingToZoom = true;
+			Utils.that.MoveToPosition(transform, GameObject.Find("Player").transform.position, 0.5f, null);
+		}
+	}
+
+	void attachZoomOn(){
+		switchingToZoom = false;
+
+		cam.fieldOfView = 40;
+		transform.position = new Vector3(bullet.transform.position.x, bullet.transform.position.y, -10);
 	}
 
 	public void attachCameraToBullet(Rigidbody b){

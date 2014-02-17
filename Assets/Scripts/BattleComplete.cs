@@ -3,6 +3,12 @@ using System.Collections;
 
 public class BattleComplete : MonoBehaviour {
 
+	void Update(){
+		if(Input.GetKeyDown(KeyCode.Return)){
+			Application.LoadLevel("main");
+		}
+	}
+
     void OnGUI() {
         Utils.scaleGUI();
 

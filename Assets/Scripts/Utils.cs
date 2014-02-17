@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// TODO: move to global file
 public enum Turn { PLAYER, OPPONENT, OVER };
 public enum Dir { NONE, UP, DOWN, LEFT, RIGHT, TOP, BOTTOM };
 public enum Difficulty { EASY, MEDIUM, HARD };
+
+public delegate void Callback ();
 
 public class Utils : MonoBehaviour {
     public static Utils that;
@@ -36,4 +37,20 @@ public class Utils : MonoBehaviour {
         Vector2 size = style.CalcSize(content);
         GUI.Label(new Rect(x - size.x/2, y - size.y, size.x, size.y), content, style);
     }
+
+	public IEnumerator MoveToPosition(Transform tForm, Vector3 newPos, float time, Callback callback){
+		float elapsedTime = 0;
+		Vector3 startingPos = tForm.position;
+		
+		while (elapsedTime < time){
+			tForm.position = Vector3.Lerp(startingPos, newPos, (elapsedTime / time));
+			elapsedTime += Time.deltaTime;
+			
+			yield return null;
+			
+			if(elapsedTime >= time && callback != null){
+				callback();
+			}
+		}
+	}
 }
