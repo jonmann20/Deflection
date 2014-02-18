@@ -16,6 +16,10 @@ public class Battle : MonoBehaviour {
         that = this;
     }
 
+    void Start() {
+        CameraZoom.that.toggleZoom(true, player.transform.position);
+    }
+
     void Update(){
         // battle over
         if(opponentCubesDestroyed >= 3){
@@ -34,14 +38,17 @@ public class Battle : MonoBehaviour {
         if(turn == Turn.PLAYER){
             turn = Turn.OPPONENT;
 
-            opponent.GetComponent<Gun>().controller.enabled = true;
-			CameraZoom.that.bullet = null;
+            if(opponent != null) {
+                CameraZoom.that.toggleZoom(false, opponent.transform.position);
+            }
         } 
         else if(turn == Turn.OPPONENT){
             turn = Turn.PLAYER;
 
-            player.GetComponent<Gun>().controller.enabled = true;
-			CameraZoom.that.bullet = null;
+            if(player != null) {
+                player.GetComponent<Gun>().controller.enabled = true;
+                CameraZoom.that.toggleZoom(true, player.transform.position);
+            }
         }
     }
 

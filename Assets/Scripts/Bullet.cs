@@ -6,9 +6,18 @@ public class Bullet : MonoBehaviour {
 
 	public void init(bool b){
 		isPlayer = b;
-
-        // TODO: Destroy if no collision
 	}
+
+    void Update(){
+        //Vector3 a = transform.position;
+        //Vector3 b = transform.TransformDirection(Vector3.back) * 400;
+
+        //Debug.DrawRay(a, b);
+
+        //if(Physics.Raycast(a, b)){
+        //    print("hit");
+        //}
+    }
 
 	void checkCollision(Collision col, ref int cubesDestroyed, string g){
         int numCubes = 2 - cubesDestroyed;
@@ -24,10 +33,12 @@ public class Bullet : MonoBehaviour {
             }
 
             ++cubesDestroyed;
+            kill();
             Destroy(col.gameObject);
         }
-
-        Destroy(gameObject, 1.5f);
+        else {
+            Destroy(gameObject, 1.8f);
+        }
 	}
 	
 	void OnCollisionEnter(Collision col){
@@ -38,11 +49,19 @@ public class Bullet : MonoBehaviour {
             checkCollision(col, ref Battle.playerCubesDestroyed, "p");
         }
         else {
-            Destroy(gameObject, 2f);
+            Destroy(gameObject, 1.8f);
         }
 	}
 	
 	void OnDestroy(){
 		Battle.that.endTurn();
 	}
+
+    void kill() {
+        GetComponent<SphereCollider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<TrailRenderer>().enabled = false;
+
+        Destroy(gameObject, 1.8f);
+    }
 }

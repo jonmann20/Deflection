@@ -39,18 +39,46 @@ public class Utils : MonoBehaviour {
     }
 
 	public IEnumerator MoveToPosition(Transform tForm, Vector3 newPos, float time, Callback callback){
-		float elapsedTime = 0;
+        float elapsedTime = 0;
 		Vector3 startingPos = tForm.position;
-		
+        
 		while (elapsedTime < time){
 			tForm.position = Vector3.Lerp(startingPos, newPos, (elapsedTime / time));
-			elapsedTime += Time.deltaTime;
+			elapsedTime += Time.deltaTime; 
 			
-			yield return null;
-			
-			if(elapsedTime >= time && callback != null){
-				callback();
+			if(elapsedTime >= time){
+                tForm.position = newPos;
+
+                if(callback != null) {
+                    callback();
+                }
 			}
+
+            yield return null;
 		}
 	}
+
+    public IEnumerator MoveToPosition(Camera cam, float newFieldOfView, float time, Callback callback) {
+        float elapsedTime = 0;
+        float initFov = cam.fieldOfView;
+        float diff = Mathf.Abs(cam.fieldOfView - newFieldOfView);
+
+        while(elapsedTime < time) {
+            cam.fieldOfView = Mathf.Lerp(initFov, newFieldOfView, (elapsedTime / time));
+            elapsedTime += Time.deltaTime;
+
+            // update the difference 
+            diff = Mathf.Abs(cam.fieldOfView - newFieldOfView);
+            
+            if(elapsedTime >= time) {
+                cam.fieldOfView = newFieldOfView;
+
+                if(callback != null){
+                    callback();
+                } 
+            }
+
+            yield return null;
+        }
+    }
 }

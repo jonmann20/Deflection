@@ -18,23 +18,23 @@ public class OpponentController : GunController {
 
     public override void CheckInput() {
         float angle = findBestAngle();
-        //print(angle);
+        //print("best angle: " + angle);
+
         float diff = Mathf.Abs(transform.eulerAngles.z - angle);
         bool coarseTune = (diff <= 10);
         bool fineTune = (diff <= 5);
 
-        //print(diff);
-        int numMoves = 0;
+        float dtAngle = 0;
 
         switch(difficulty) {
             case Difficulty.EASY:
-                numMoves = fineTune ? 1 : (coarseTune ? 2 : 3);
+                dtAngle = fineTune ? 1 : (coarseTune ? 2 : 3);
                 break;
             case Difficulty.MEDIUM:
-                numMoves = fineTune ? 1 : (coarseTune ? 2 : 6);
+                dtAngle = fineTune ? 1 : (coarseTune ? 2 : 6);
                 break;
             case Difficulty.HARD:
-                numMoves = fineTune ? 1 : (coarseTune ? 2 : 9);
+                dtAngle = fineTune ? 1 : (coarseTune ? 2 : 9);
                 break;
 
         }
@@ -42,29 +42,34 @@ public class OpponentController : GunController {
         // TODO: move to other size of missing
 		//TODO: have a error float, and random number generator within the error range
 
-        for(int i=0; i < numMoves; ++i) {
-            doMovement(angle);
-        }
-
+        doMovement(angle, dtAngle);
         gun.shoot();
     }
 
-    void doMovement(float angle){
-        if(angle > transform.eulerAngles.z) {
-            gun.move(Dir.UP);
+    void doMovement(float angle, float dtAngle){
+        // TODO: slerp??
+
+        if(angle > transform.eulerAngles.z) {       // up
+            gun.rotateBy(dtAngle);
         } 
-        else if(angle < transform.eulerAngles.z) {
-            gun.move(Dir.DOWN);
+        else if(angle < transform.eulerAngles.z) {  // down
+            gun.rotateBy(-dtAngle);
         }
     }
 
     float findBestAngle(){
         // theta = 1/2 arcsin(gd / v^2)
 
-        // TODO: calculate actual distance dynamically
-        float dist = 498.8f;
+        float dist = Mathf.Abs(GameObject.Find("pGun").transform.position.x - gameObject.transform.position.x);
+        float inAsin = (Physics.gravity.magnitude * dist) / (gun.normalizedSpeed*gun.normalizedSpeed);
 
-        float angle = 0.5f * Mathf.Asin((Physics.gravity.magnitude * dist ) / (gun.normalizedSpeed*gun.normalizedSpeed));
+        if(inAsin > 1) {
+            --inAsin;
+        }
+
+        float angle = 0.5f * Mathf.Asin(inAsin);
+
+        //print("best angle (rad): " + angle);
         return angle * Mathf.Rad2Deg;
     }
 }

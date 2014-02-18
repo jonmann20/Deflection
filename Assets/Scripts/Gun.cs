@@ -11,8 +11,8 @@ public class Gun : MonoBehaviour {
 	Vector3 initPos;
 	float halfW;
 	
-	const int DT_THETA = 1;
-	int minDeg, maxDeg;
+	const float DT_THETA = 0.3f;
+	float minDeg, maxDeg;
 	float dtMove = 0;
 
 	string angleStr, speedStr;
@@ -33,7 +33,6 @@ public class Gun : MonoBehaviour {
 		initPos = transform.position;
 		halfW = renderer.bounds.size.x/2;
 
-		angleStr = "45";
 		angle = transform.eulerAngles.z;
 		
 		speedStr = normalizedSpeed.ToString();
@@ -43,16 +42,18 @@ public class Gun : MonoBehaviour {
 			halfW *= -1;
 			bulletSpeed *= -1;
 			
-			minDeg = 270;
-			maxDeg = 360;
+			minDeg = 270.5f;
+			maxDeg = 359.5f;
 		}
 		else {
-			minDeg = 0;
-			maxDeg = 90;
+			minDeg = 0.5f;
+			maxDeg = 89.5f;
 		}
 
         setRandomAngle();
-		setRandomPosition();
+		//setRandomPosition();
+
+        angleStr = normalizeAngle(transform.eulerAngles.z).ToString("f1");
 	}
 
 	void Update(){
@@ -74,83 +75,53 @@ public class Gun : MonoBehaviour {
 	}
 
 	void angleGUI(){
-
-		
 		// new angle
-		angleStr = GUI.TextField(new Rect(3, 30, 30, 20), angleStr, 3);
-		
-		if (GUI.Button (new Rect (35, 30, 130, 20), "Click to set angle")) {
-			if(float.TryParse(angleStr, out angle)){
-				float dtAngle = 0;
+        if(isPlayer) {
+            angleStr = GUI.TextField(new Rect(3, 30, 40, 20), angleStr, 4);
 
-                if(isPlayer) {
-                    float tmp = 360 - angle;
+            if(GUI.Button(new Rect(45, 30, 120, 20), "Click to set angle")) {
+                if(float.TryParse(angleStr, out angle)) {
+                    float dtAngle = 0;
+
+                    float tmp = 270 + angle;
 
                     //print("old: " + transform.eulerAngles.z);
-                   // print("new: " + tmp);
+                    //print("new: " + tmp);
 
-                    if(tmp < transform.eulerAngles.z){
+                    if(tmp < transform.eulerAngles.z) {
                         dtAngle = tmp - transform.eulerAngles.z;
                     }
-                    else if(tmp > transform.eulerAngles.z){
+                    else if(tmp > transform.eulerAngles.z) {
                         dtAngle = tmp - transform.eulerAngles.z;
                     }
-                } 
-                else {
-                    dtAngle = angle;
+
+
+                    //print("dt: " + dtAngle);
+                    rotateBy(dtAngle);
                 }
-
-                //print("dt: " + dtAngle);
-                rotateTo(dtAngle);
-			}
-			else {
-				// GUI.Label("not a #");
-			}
-		}
-
+                else {
+                    // GUI.Label("not a #");
+                }
+            }
+        }
 
         // current angle
-        float fixedAngle;
-        if(isPlayer) {
-            fixedAngle = (360 - transform.eulerAngles.z);
-        } else {
-            fixedAngle = transform.eulerAngles.z;
-        }
-        fixedAngle = Mathf.Floor(fixedAngle);
-
-        GUI.Box(new Rect(3, 3, 162, 23), "Current angle: " + fixedAngle.ToString());
+        float fixedAngle = normalizeAngle(transform.eulerAngles.z);
+        GUI.Box(new Rect(3, 3, 162, 23), "Current angle: " + fixedAngle.ToString("f1"));
 	}
 
 	void speedGUI(){
 		// current speed
-		GUI.Box(new Rect(200, 3, 162, 23), "Current speed: " + normalizedSpeed.ToString());
+		GUI.Box(new Rect(200, 3, 162, 23), "Current speed: " + normalizedSpeed.ToString("f1"));
 		
 		// new speed
-		normalizedSpeed = GUI.HorizontalSlider(new Rect(226, 30, 126, 20), normalizedSpeed, 220, 280);
-		
 		if(isPlayer){
+            normalizedSpeed = GUI.HorizontalSlider(new Rect(226, 30, 126, 20), normalizedSpeed, 230, 250);
 			bulletSpeed = normalizedSpeed;
 		}
 		else {
 			bulletSpeed = -normalizedSpeed;
 		}
-
-//		speedStr = GUI.TextField(new Rect(200, 30, 33, 20), speedStr, 4);
-//		
-//		if(GUI.Button (new Rect (236, 30, 126, 20), "Click to set speed")) {
-//			if(float.TryParse(speedStr, out normalizedSpeed)){
-//				// success
-//				if(isPlayer){
-//					bulletSpeed = normalizedSpeed;
-//				}
-//				else {
-//					bulletSpeed = -normalizedSpeed;
-//				}
-//			}
-//			//else {
-//				// GUI.Label("not a #");
-//			//}
-//		}
 	}
 
 	#endregion GUI
@@ -162,28 +133,29 @@ public class Gun : MonoBehaviour {
         // TODO: if < 1 degree snap to target
 
 		dtMove = (dir == Dir.UP) ? DT_THETA : -DT_THETA;
-		rotateTo(dtMove);
+		rotateBy(dtMove);
 	}
 
 	public void shoot(){
-        float bulletSizeX = isPlayer ? -2.5f : 2.5f;
+        controller.enabled = false;
 
-        Vector3 pos = new Vector3(transform.position.x - halfW + bulletSizeX, transform.position.y + renderer.bounds.size.y/2, transform.position.z);
-		Rigidbody projectile = Instantiate(bulletPrefab, pos, transform.rotation) as Rigidbody;
+        //float bulletSizeX = isPlayer ? -2.5f : 2.5f;
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y + renderer.bounds.size.y/2, transform.position.z);
 
-		if(isPlayer){
-			CameraZoom.that.attachCameraToBullet(projectile);
-		}
+        Rigidbody projectile = Instantiate(bulletPrefab, pos, transform.rotation) as Rigidbody;
 
-		Bullet b = projectile.GetComponent<Bullet>();
+        Bullet b = projectile.GetComponent<Bullet>();
         b.init(isPlayer);
 
-        float x = getBulletVelocityX();
-		float y = getBulletVelocityY();
+        if(isPlayer){
+            //CameraZoom.that.bulletTrans = projectile.transform;
+        }
 
-		projectile.velocity = new Vector3(x, y, 0);
-        controller.enabled = false;
-	}
+        float x = getBulletVelocityX();
+        float y = getBulletVelocityY();
+
+        projectile.velocity = new Vector3(x, y, 0);
+    }
 
 	#endregion Public Actions
 
@@ -192,7 +164,7 @@ public class Gun : MonoBehaviour {
 
     void setRandomAngle() {
         // starts at 270 or 30 by default
-        rotateTo(Random.Range(-30, 60));
+        rotateBy(Random.Range(-30, 60));
     }
 
 	void setRandomPosition() {
@@ -201,7 +173,16 @@ public class Gun : MonoBehaviour {
 		}
 	}
 
-	void rotateTo(float dtAngle){
+    float normalizeAngle(float f) {
+        if(isPlayer) {
+            return (f - 270);
+        }
+        else {
+            return -f + 90;
+        }
+    }
+
+	public void rotateBy(float dtAngle){
 		if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg){
 			transform.RotateAround(
 				new Vector3(initPos.x + halfW, initPos.y - renderer.bounds.size.y/2),
@@ -209,9 +190,6 @@ public class Gun : MonoBehaviour {
 				dtAngle
 			);
 		}
-		//else {
-			// GUI.Label("outside of range");
-		//}
 	}
 
     float getBulletVelocityX(){
