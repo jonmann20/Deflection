@@ -28,8 +28,8 @@ public class CameraZoom : MonoBehaviour {
         bulletPos = pos;
 
 		if(turnZoomOn){    
-            //StartCoroutine(Utils.that.MoveToPosition(transform, new Vector3(pos.x, pos.y, -10), 0.7f, null));
-            //StartCoroutine(Utils.that.MoveToPosition(camera, 56, 0.6f, finishZoomIn));
+            //StartCoroutine(Utils.that.MoveToPosition(transform, new Vector3(pos.x, 80, -10), 0.9f, null));
+            //StartCoroutine(Utils.that.MoveToPosition(camera, 52, 0.9f, finishZoomIn));
             finishZoomIn();
 		}
         else {
@@ -37,7 +37,6 @@ public class CameraZoom : MonoBehaviour {
 
             //StartCoroutine(Utils.that.MoveToPosition(transform, new Vector3(centerX, 100, -10), 0.7f, null));
             //StartCoroutine(Utils.that.MoveToPosition(camera, 60, 0.6f, finishZoomOut));
-
             finishZoomOut();
         }
 	}
@@ -52,7 +51,7 @@ public class CameraZoom : MonoBehaviour {
     void finishZoomOut(){
         zoomIsOn = false;
 
-        Battle.that.opponent.GetComponent<Gun>().controller.enabled = true;
+//        Battle.that.opponent.GetComponent<Gun>().controller.enabled = true;
     }
 
 

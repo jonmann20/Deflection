@@ -3,13 +3,15 @@ using System.Collections;
 
 public class PlayerController : GunController {
 
+    const float DT_THETA = 0.3f;
+
 	public override void CheckInput(){
 		// movement
 		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)){
-			gun.move(Dir.UP);
+			move(Dir.UP);
 		}
 		else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)){
-			gun.move(Dir.DOWN);
+			move(Dir.DOWN);
 		}
 		
 		// shoot
@@ -17,4 +19,11 @@ public class PlayerController : GunController {
 			gun.shoot();
 		}
 	}
+
+    public void move(Dir dir) {
+        // TODO: if < 1 degree from perfect angle, snap to target
+
+        float dtMove = (dir == Dir.UP) ? DT_THETA : -DT_THETA;
+        gun.rotateBy(dtMove);
+    }
 }

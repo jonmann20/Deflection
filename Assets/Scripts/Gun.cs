@@ -11,13 +11,13 @@ public class Gun : MonoBehaviour {
 	Vector3 initPos;
 	float halfW;
 	
-	const float DT_THETA = 0.3f;
 	float minDeg, maxDeg;
-	float dtMove = 0;
 
 	string angleStr, speedStr;
-	float angle, bulletSpeed;
-    public float normalizedSpeed = 240;
+    public float bulletSpeed = 0;
+    float angle;
+    const float initSpeed = 330;
+    float normalizedSpeed = initSpeed;
 
 	void Awake(){
 		bulletPrefab = Resources.Load<Rigidbody>("Bullet");
@@ -27,6 +27,7 @@ public class Gun : MonoBehaviour {
 		}
 		else {
 			controller = gameObject.AddComponent<OpponentController>();
+            //controller = gameObject.AddComponent<PlayerController>();
             controller.enabled = false;
 		}
 
@@ -37,7 +38,7 @@ public class Gun : MonoBehaviour {
 		
 		speedStr = normalizedSpeed.ToString();
 		bulletSpeed = -normalizedSpeed;
-
+        
 		if(isPlayer){
 			halfW *= -1;
 			bulletSpeed *= -1;
@@ -116,7 +117,7 @@ public class Gun : MonoBehaviour {
 		
 		// new speed
 		if(isPlayer){
-            normalizedSpeed = GUI.HorizontalSlider(new Rect(226, 30, 126, 20), normalizedSpeed, 230, 250);
+            normalizedSpeed = GUI.HorizontalSlider(new Rect(226, 30, 126, 20), normalizedSpeed, initSpeed - 10, initSpeed + 10);
 			bulletSpeed = normalizedSpeed;
 		}
 		else {
@@ -129,18 +130,11 @@ public class Gun : MonoBehaviour {
 
 	#region Public Actions
 
-	public void move(Dir dir){
-        // TODO: if < 1 degree snap to target
-
-		dtMove = (dir == Dir.UP) ? DT_THETA : -DT_THETA;
-		rotateBy(dtMove);
-	}
-
 	public void shoot(){
         controller.enabled = false;
 
         //float bulletSizeX = isPlayer ? -2.5f : 2.5f;
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y + renderer.bounds.size.y/2, transform.position.z);
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         Rigidbody projectile = Instantiate(bulletPrefab, pos, transform.rotation) as Rigidbody;
 
@@ -149,6 +143,7 @@ public class Gun : MonoBehaviour {
 
         if(isPlayer){
             //CameraZoom.that.bulletTrans = projectile.transform;
+            CameraZoom.that.toggleZoom(false, Vector3.zero);
         }
 
         float x = getBulletVelocityX();
@@ -173,12 +168,12 @@ public class Gun : MonoBehaviour {
 		}
 	}
 
-    float normalizeAngle(float f) {
+    public float normalizeAngle(float f){
         if(isPlayer) {
-            return (f - 270);
+            return f - 270;
         }
         else {
-            return -f + 90;
+            return 90 - f;
         }
     }
 
@@ -203,7 +198,7 @@ public class Gun : MonoBehaviour {
             angle = 90 - transform.eulerAngles.z;
         }
 
-        return bulletSpeed * Mathf.Cos(angle * Mathf.Deg2Rad);;
+        return bulletSpeed * Mathf.Cos(angle * Mathf.Deg2Rad);
     }
 
     float getBulletVelocityY(){

@@ -85,7 +85,7 @@ GameObject:
   - 33: {fileID: 402149342}
   - 65: {fileID: 402149341}
   - 23: {fileID: 402149340}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pH1
   m_TagString: playerCube
   m_Icon: {fileID: 0}
@@ -285,6 +285,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1366095443}
   opponent: {fileID: 1474672474}
+  pHouses: []
+  oHouses: []
 --- !u!1 &771784196
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +298,7 @@ GameObject:
   - 33: {fileID: 771784199}
   - 65: {fileID: 771784198}
   - 23: {fileID: 771784197}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pH2
   m_TagString: playerCube
   m_Icon: {fileID: 0}
@@ -376,7 +378,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 949401485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 255, y: 105, z: 66}
+  m_LocalPosition: {x: 255, y: 105.477577, z: 65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1474672475}
@@ -638,7 +640,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967016
+    m_Bits: 4294965992
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0
@@ -800,7 +802,7 @@ GameObject:
   - 114: {fileID: 1366095445}
   - 33: {fileID: 1366095447}
   - 23: {fileID: 1366095446}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -831,7 +833,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 1
   controller: {fileID: 0}
-  normalizedSpeed: 240
+  bulletSpeed: 0
 --- !u!23 &1366095446
 Renderer:
   m_ObjectHideFlags: 0
@@ -930,7 +932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   controller: {fileID: 0}
-  normalizedSpeed: 240
+  bulletSpeed: 0
 --- !u!1 &1809185038
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,9 +955,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1809185038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -255, y: 105, z: 66}
+  m_LocalPosition: {x: -255, y: 105.477844, z: 65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2135252407}
   - {fileID: 2085567620}
   - {fileID: 771784200}
   - {fileID: 402149339}
@@ -1006,7 +1009,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294966783
+    m_Bits: 4294965759
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0
@@ -1019,8 +1022,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1898388266}
-  m_LocalRotation: {x: .140900388, y: .00345582771, z: -.000491837098, w: .990017653}
-  m_LocalPosition: {x: 784.799988, y: 122.199997, z: -239}
+  m_LocalRotation: {x: .0696161389, y: -.552898347, z: .829036474, w: .0464281701}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1105,7 +1108,7 @@ GameObject:
   - 33: {fileID: 2085567623}
   - 65: {fileID: 2085567622}
   - 23: {fileID: 2085567621}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pH0
   m_TagString: playerCube
   m_Icon: {fileID: 0}
@@ -1175,7 +1178,7 @@ GameObject:
   - 23: {fileID: 2124157229}
   - 114: {fileID: 2124157230}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: _FogOfWarPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,3 +1234,65 @@ Transform:
   m_LocalScale: {x: 200, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!1 &2135252406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2135252407}
+  - 108: {fileID: 2135252408}
+  m_Layer: 10
+  m_Name: pLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2135252407
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2135252406}
+  m_LocalRotation: {x: -.163770333, y: .509887516, z: -.0995739475, w: -.838617384}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1809185039}
+--- !u!108 &2135252408
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2135252406}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Type: 1
+  m_Color: {r: .261678219, g: .582418561, b: .808823526, a: 1}
+  m_Intensity: .5
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_Softness: 4
+    m_SoftnessFade: 1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_ActuallyLightmapped: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294966504
+  m_Lightmapping: 1
+  m_ShadowSamples: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_IndirectIntensity: 1
+  m_AreaSize: {x: 1, y: 1}
