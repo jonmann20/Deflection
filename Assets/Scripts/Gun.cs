@@ -16,18 +16,18 @@ public class Gun : MonoBehaviour {
 	string angleStr, speedStr;
     public float bulletSpeed = 0;
     float angle;
-    const float initSpeed = 330;
+    const float initSpeed = 240;
     float normalizedSpeed = initSpeed;
 
 	void Awake(){
 		bulletPrefab = Resources.Load<Rigidbody>("Bullet");
 
 		if(isPlayer){
-			controller = gameObject.AddComponent<PlayerController>();
+			controller = gameObject.AddComponent<TurretController>();
 		}
 		else {
-			controller = gameObject.AddComponent<OpponentController>();
-            //controller = gameObject.AddComponent<PlayerController>();
+            //controller = gameObject.AddComponent<TurretController>();
+            controller = gameObject.AddComponent<PlayerController>();
             controller.enabled = false;
 		}
 
@@ -50,11 +50,6 @@ public class Gun : MonoBehaviour {
 			minDeg = 0.5f;
 			maxDeg = 89.5f;
 		}
-
-        setRandomAngle();
-		//setRandomPosition();
-
-        angleStr = normalizeAngle(transform.eulerAngles.z).ToString("f1");
 	}
 
 	void Update(){
@@ -63,88 +58,15 @@ public class Gun : MonoBehaviour {
         }
 	}
 
-	#region GUI
-	
-	void OnGUI(){
-        if(Battle.turn == Turn.PLAYER && isPlayer || Battle.turn == Turn.OPPONENT && !isPlayer){
-            angleGUI();
-            speedGUI();
-
-            // Indicate turn
-            GUI.Box(new Rect(Screen.width/1.5f, 3, 162, 23), isPlayer ? "Player's Turn" : "Opponent's Turn");
-        }
-	}
-
-	void angleGUI(){
-		// new angle
-        if(isPlayer) {
-            angleStr = GUI.TextField(new Rect(3, 30, 40, 20), angleStr, 4);
-
-            if(GUI.Button(new Rect(45, 30, 120, 20), "Click to set angle")) {
-                if(float.TryParse(angleStr, out angle)) {
-                    float dtAngle = 0;
-
-                    float tmp = 270 + angle;
-
-                    //print("old: " + transform.eulerAngles.z);
-                    //print("new: " + tmp);
-
-                    if(tmp < transform.eulerAngles.z) {
-                        dtAngle = tmp - transform.eulerAngles.z;
-                    }
-                    else if(tmp > transform.eulerAngles.z) {
-                        dtAngle = tmp - transform.eulerAngles.z;
-                    }
-
-
-                    //print("dt: " + dtAngle);
-                    rotateBy(dtAngle);
-                }
-                else {
-                    // GUI.Label("not a #");
-                }
-            }
-        }
-
-        // current angle
-        float fixedAngle = normalizeAngle(transform.eulerAngles.z);
-        GUI.Box(new Rect(3, 3, 162, 23), "Current angle: " + fixedAngle.ToString("f1"));
-	}
-
-	void speedGUI(){
-		// current speed
-		GUI.Box(new Rect(200, 3, 162, 23), "Current speed: " + normalizedSpeed.ToString("f1"));
-		
-		// new speed
-		if(isPlayer){
-            normalizedSpeed = GUI.HorizontalSlider(new Rect(226, 30, 126, 20), normalizedSpeed, initSpeed - 10, initSpeed + 10);
-			bulletSpeed = normalizedSpeed;
-		}
-		else {
-			bulletSpeed = -normalizedSpeed;
-		}
-	}
-
-	#endregion GUI
-
 
 	#region Public Actions
 
 	public void shoot(){
-        controller.enabled = false;
-
-        //float bulletSizeX = isPlayer ? -2.5f : 2.5f;
         Vector3 pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
         Rigidbody projectile = Instantiate(bulletPrefab, pos, transform.rotation) as Rigidbody;
 
         Bullet b = projectile.GetComponent<Bullet>();
         b.init(isPlayer);
-
-        if(isPlayer){
-            //CameraZoom.that.bulletTrans = projectile.transform;
-            CameraZoom.that.toggleZoom(false, Vector3.zero);
-        }
 
         float x = getBulletVelocityX();
         float y = getBulletVelocityY();
@@ -156,26 +78,6 @@ public class Gun : MonoBehaviour {
 
 
 	#region Utils
-
-    void setRandomAngle() {
-        // starts at 270 or 30 by default
-        rotateBy(Random.Range(-30, 60));
-    }
-
-	void setRandomPosition() {
-		if(!isPlayer){
-			GameObject.Find("Opponent").transform.Translate(Random.Range(-100, 100), 0, 0);
-		}
-	}
-
-    public float normalizeAngle(float f){
-        if(isPlayer) {
-            return f - 270;
-        }
-        else {
-            return 90 - f;
-        }
-    }
 
 	public void rotateBy(float dtAngle){
 		if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg){

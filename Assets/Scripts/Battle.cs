@@ -14,6 +14,8 @@ public class Battle : MonoBehaviour {
     public GameObject player, opponent;
     public List<GameObject> pHouses, oHouses;
 
+    public static int numPoints = 0;
+
     void Awake(){
         that = this;
 
@@ -28,45 +30,9 @@ public class Battle : MonoBehaviour {
         oHouses.Add(GameObject.Find("oppH2"));
     }
 
-    void Start() {
-        CameraZoom.that.toggleZoom(true, player.transform.position);
+    void OnGUI() {
+        Utils.scaleGUI();
+
+        Utils.placeTxt(numPoints.ToString(), 40, 25, 75);
     }
-
-    void Update(){
-        // battle over
-        if(oCubesLeft <= 0){
-            turn = Turn.OVER;
-            winLossStatus = "win";
-            Application.LoadLevel("end");
-        } 
-        else if(pCubesLeft <= 0){
-            turn = Turn.OVER;
-            winLossStatus = "lose";
-            Application.LoadLevel("end");
-        }
-    }
-
-    public void endTurn(){
-        if(turn == Turn.PLAYER){
-            turn = Turn.OPPONENT;
-
-            if(opponent != null) {
-                //CameraZoom.that.toggleZoom(false, opponent.transform.position);
-                opponent.GetComponent<Gun>().controller.enabled = true;
-            }
-        } 
-        else if(turn == Turn.OPPONENT){
-            turn = Turn.PLAYER;
-
-            if(player != null) {
-                CameraZoom.that.toggleZoom(true, player.transform.position);
-                player.GetComponent<Gun>().controller.enabled = true;
-            }
-        }
-    }
-
-    //IEnumerator startTurn(Gun g) {
-    //    yield return new WaitForSeconds(3f);
-    //    g.enabled = true;
-    //}
 }
