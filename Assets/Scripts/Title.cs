@@ -12,8 +12,15 @@ public class Title : MonoBehaviour {
     void OnGUI(){
         Utils.scaleGUI();
 
-        Utils.placeTxt("tyBomber", 86, Utils.HALFW, Utils.FULLH/5);
-        Utils.placeTxt("Press Enter", 86, Utils.HALFW, Utils.FULLH/1.8f);
+        Utils.placeTxt("Deflection", 88, Utils.HALFW, Utils.FULLH/5.3f);
+        Utils.blinkTxt("Press Enter", 66, Utils.HALFW, Utils.FULLH/2.45f);
+
+        int size = 46;
+
+        Utils.placeTxt("Player 1 (blue): WASD movement", size, Utils.HALFW, Utils.FULLH/1.7f);
+        Utils.placeTxt("Player 2 (red):  Arrow Keys movement", size, Utils.HALFW, Utils.FULLH/1.5f);
+        Utils.placeTxt("Goal: keep the other player from scoring " + Battle.NUM_TO_WIN + " points", size, Utils.HALFW, Utils.FULLH/1.25f);
+        Utils.placeTxt("(block the opposing color balls)", size, Utils.HALFW, Utils.FULLH/1.15f);
     }
 }
 

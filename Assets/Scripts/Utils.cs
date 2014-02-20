@@ -27,12 +27,23 @@ public class Utils : MonoBehaviour {
         GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(rx, ry, 1)); 
     }
 
-    public static void placeTxt(string str, int fontSize, float x, float y) {
+    public static void placeTxt(string str, int fontSize, float x, float y, bool black=false) {
         GUIContent content = new GUIContent(str);
 
         GUIStyle style = new GUIStyle();
         style.fontSize = fontSize;
-        style.normal.textColor = Color.white;
+        style.normal.textColor = black ? Color.black : Color.white;
+
+        Vector2 size = style.CalcSize(content);
+        GUI.Label(new Rect(x - size.x/2, y - size.y, size.x, size.y), content, style);
+    }
+
+    public static void blinkTxt(string str, int fontSize, float x, float y) {
+        GUIContent content = new GUIContent(str);
+
+        GUIStyle style = new GUIStyle();
+        style.fontSize = fontSize;
+        style.normal.textColor = new Color(255, 255, 255, Mathf.PingPong(Time.time, 1));
 
         Vector2 size = style.CalcSize(content);
         GUI.Label(new Rect(x - size.x/2, y - size.y, size.x, size.y), content, style);
@@ -61,14 +72,14 @@ public class Utils : MonoBehaviour {
     public IEnumerator MoveToPosition(Camera cam, float newFieldOfView, float time, Callback callback) {
         float elapsedTime = 0;
         float initFov = cam.fieldOfView;
-        float diff = Mathf.Abs(cam.fieldOfView - newFieldOfView);
+        //float diff = Mathf.Abs(cam.fieldOfView - newFieldOfView);
 
         while(elapsedTime < time) {
             cam.fieldOfView = Mathf.Lerp(initFov, newFieldOfView, (elapsedTime / time));
             elapsedTime += Time.deltaTime;
 
             // update the difference 
-            diff = Mathf.Abs(cam.fieldOfView - newFieldOfView);
+            //diff = Mathf.Abs(cam.fieldOfView - newFieldOfView);
             
             if(elapsedTime >= time) {
                 cam.fieldOfView = newFieldOfView;

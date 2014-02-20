@@ -7,6 +7,7 @@ TagManager:
   - playerCube
   - Bullet
   - Deflector
+  - goalRed
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -17,10 +18,10 @@ TagManager:
   Builtin Layer 6: 
   Builtin Layer 7: 
   User Layer 8: background
-  User Layer 9: opponent
-  User Layer 10: player
-  User Layer 11: 
-  User Layer 12: 
+  User Layer 9: turretRed
+  User Layer 10: turretBlue
+  User Layer 11: deflectorRed
+  User Layer 12: deflectorBlue
   User Layer 13: 
   User Layer 14: 
   User Layer 15: 

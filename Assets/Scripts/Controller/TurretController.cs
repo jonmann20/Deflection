@@ -6,6 +6,8 @@ public class TurretController : GunController {
     bool isMoving = false;
     bool getNewAngle = true;
 
+    float timeOffset = 0;
+
     float newAngle = 0;
     float angleOffset = 0;
     float dtAngle = 0;
@@ -22,7 +24,7 @@ public class TurretController : GunController {
 
 
     void doMovement(){
-        dtAngle = angleOffset * (Time.deltaTime/1.2f);
+        dtAngle = angleOffset * (Time.deltaTime/timeOffset);
         dtAngle = (dir == Dir.UP) ? dtAngle : -dtAngle;
 
         gun.rotateBy(dtAngle);
@@ -36,7 +38,11 @@ public class TurretController : GunController {
     }
 
     void calcAngle(){
-        float angle = Random.Range(20, 70) + 270;
+        float angle = Random.Range(22, 68);
+
+        if(gun.isBlue) {
+            angle += 270;
+        }
 
         angleOffset = Mathf.Abs(gun.transform.eulerAngles.z - angle);
 
@@ -49,6 +55,7 @@ public class TurretController : GunController {
             newAngle = gun.transform.eulerAngles.z - angleOffset;
         }
 
+        timeOffset = Random.Range(1.5f, 2.1f);
 
         isMoving = true;
         getNewAngle = false;
