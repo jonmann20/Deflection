@@ -1,7 +1,7 @@
 Initialize engine version: 4.3.2f1 (0517a5ae8669)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 9.0c [aticfx32.dll 8.17.10.1247]
+    Version:  Direct3D 9.0c [aticfx64.dll 8.17.10.1267]
     Renderer: AMD Radeon HD 7700 Series
     Vendor:   ATI
     VRAM:     1008 MB (via DXGI)
@@ -9,23 +9,121 @@ Direct3D:
 Begin MonoManager ReloadAssembly
 Platform assembly: C:\git\tyBomber\build_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading C:\git\tyBomber\build_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\git\tyBomber\build_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
-Loading C:\git\tyBomber\build_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
-- Completed reload, in  0.059 seconds
+Platform assembly: C:\git\tyBomber\build_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\git\tyBomber\build_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+- Completed reload, in  0.045 seconds
 desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
 <RI> Initializing input.
-XInput1_3.dll not found.
 <RI> Input initialized.
-UnloadTime: 0.293185 ms
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+Skipped rendering frame because GfxDevice is in invalid state (device lost)
+ 
+(Filename:  Line: 1539)
 
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 109.
-Total: 0.491854 ms (FindLiveObjects: 0.004663 ms CreateObjectMapping: 0.004974 ms MarkObjects: 0.050988 ms  DeleteObjects: 0.003419 ms)
-
-Platform assembly: C:\git\tyBomber\build_Data\Managed\Boo.Lang.dll (this message is harmless)
 HandleD3DDeviceLost
   HandleD3DDeviceLost: needs reset, doing it
 FullResetD3DDevice
 ResetD3DDevice
 dev->Reset
 D3Dwindow device not lost anymore
+UnloadTime: 0.368733 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 263.
+Total: 0.894473 ms (FindLiveObjects: 0.014612 ms CreateObjectMapping: 0.006839 ms MarkObjects: 0.103842 ms  DeleteObjects: 0.393294 ms)
+
+UnloadTime: 0.945151 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 47 unused Assets to reduce memory usage. Loaded Objects now: 126.
+Total: 4.410808 ms (FindLiveObjects: 0.006529 ms CreateObjectMapping: 0.008394 ms MarkObjects: 0.098556 ms  DeleteObjects: 3.936678 ms)
+
+UnloadTime: 0.268000 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 129.
+Total: 6.308261 ms (FindLiveObjects: 0.007150 ms CreateObjectMapping: 0.005596 ms MarkObjects: 0.094826 ms  DeleteObjects: 5.816099 ms)
+
+UnloadTime: 0.239396 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 269.
+Total: 3.431768 ms (FindLiveObjects: 0.013679 ms CreateObjectMapping: 0.006839 ms MarkObjects: 0.107884 ms  DeleteObjects: 2.963235 ms)
+
