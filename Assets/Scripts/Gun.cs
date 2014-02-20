@@ -20,12 +20,10 @@ public class Gun : MonoBehaviour {
         if(isBlue) {
             bulletPrefab = Resources.Load<Rigidbody>("BulletBlue");
             controller = gameObject.AddComponent<TurretController>();
-            //controller.enabled = false;
         }
         else {
             bulletPrefab = Resources.Load<Rigidbody>("BulletRed");
             controller = gameObject.AddComponent<TurretController>();
-            //controller.enabled = false;
         }
 
 		initPos = transform.position;
@@ -46,9 +44,7 @@ public class Gun : MonoBehaviour {
 	}
 
 	void Update(){
-        if(controller.enabled) {
-            controller.CheckInput();
-        }
+        controller.CheckInput();
 	}
 
 

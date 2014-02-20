@@ -5,11 +5,11 @@ public class Bullet : MonoBehaviour {
 	
     public bool isBlue;
 
+
     void Update(){
         if(transform.position.y < -90) {
             Destroy(gameObject);    
         }
-
     }
 
     //void FixedUpdate(){
@@ -29,15 +29,10 @@ public class Bullet : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision col){
         if(col.gameObject.tag == "Deflector") {
-            // bounce off
-            //Vector3 forceVec = -rigidbody.velocity.normalized * 10000;
-            //rigidbody.AddForce(forceVec, ForceMode.Acceleration);
-            //rigidbody.AddForce(0, -40, 0);
-
-            print("col");
-            rigidbody.velocity = -rigidbody.velocity;
-
-            GameAudio.play("thud");
+            GameAudio.playThud(transform.position);
+            
+            //print("col");
+            rigidbody.velocity = -(rigidbody.velocity * 1.32f);
         }
         else {
             Destroy(gameObject, 0.15f);

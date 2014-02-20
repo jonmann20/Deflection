@@ -9,18 +9,22 @@ public class Goal : MonoBehaviour {
         if(col.gameObject.tag == "Bullet") {
             if(isBlue) {
                 --Battle.numPointsBlue;
+                GameAudio.playScore(true);
             }
             else {
                 --Battle.numPointsRed;
+                GameAudio.playScore(false);
             }
 
-            Destroy(col.gameObject);
-            playGoalAnimation();
+            playGoalAnimation(col);
         }
     }
 
 
-    void playGoalAnimation() {
-        GameAudio.play("score");
+    void playGoalAnimation(Collider col) {
+        Behaviour halo = col.GetComponent("Halo") as Behaviour;
+        halo.enabled = true;
+
+        Destroy(col.gameObject, 0.6f);        
     }
 }

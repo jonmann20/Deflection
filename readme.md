@@ -12,5 +12,6 @@ Goal
 
 Audio Assets
 ------------
-* [Background Music -- Ove Melaa](http://opengameart.org/content/oves-essential-game-audio-pack-collection-160-files)
+* [Battle -- Ove Melaa](http://opengameart.org/content/oves-essential-game-audio-pack-collection-160-files)
+* [Intro/Outr -- Licensed CC-BY. Attribute to Avgvst.](http://opengameart.org/content/generic-8-bit-jrpg-soundtrack)
 	

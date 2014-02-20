@@ -5,7 +5,9 @@ public class Deflector : MonoBehaviour {
 
     public bool isBlue = false;
 
-    float edge = 292;
+    float edge = 288;
+    float dtX = 60;
+    float dtY = 30;
 
     Vector3 newDeflectorPos;
 
@@ -19,37 +21,37 @@ public class Deflector : MonoBehaviour {
         if(isBlue) {
             if(Input.GetKeyDown(KeyCode.A)) {
                 newDeflectorPos = transform.position;
-                newDeflectorPos.x -= 60;
+                newDeflectorPos.x -= dtX;
             }
             if(Input.GetKeyDown(KeyCode.D)) {
                 newDeflectorPos = transform.position;
-                newDeflectorPos.x += 60;
+                newDeflectorPos.x += dtX;
             }
             if(Input.GetKeyDown(KeyCode.W)) {
                 newDeflectorPos = transform.position;
-                newDeflectorPos.y += 30;
+                newDeflectorPos.y += dtY;
             }
             if(Input.GetKeyDown(KeyCode.S)) {
                 newDeflectorPos = transform.position;
-                newDeflectorPos.y -= 30;
+                newDeflectorPos.y -= dtY;
             }
         }
         else {
             if(Input.GetKeyDown(KeyCode.LeftArrow)) {
                 newDeflectorPos = transform.position;
-                newDeflectorPos.x -= 60;
+                newDeflectorPos.x -= dtX;
             }
             if(Input.GetKeyDown(KeyCode.RightArrow)) {
                 newDeflectorPos = transform.position;
-                newDeflectorPos.x += 60;
+                newDeflectorPos.x += dtX;
             }
             if(Input.GetKeyDown(KeyCode.UpArrow)) {
                 newDeflectorPos = transform.position;
-                newDeflectorPos.y += 30;
+                newDeflectorPos.y += dtY;
             }
             if(Input.GetKeyDown(KeyCode.DownArrow)) {
                 newDeflectorPos = transform.position;
-                newDeflectorPos.y -= 30;
+                newDeflectorPos.y -= dtY;
             }
         }
 
@@ -64,11 +66,29 @@ public class Deflector : MonoBehaviour {
 
     void handleBallCollision(RaycastHit hit){
         if(hit.collider.gameObject.tag == "Bullet") {
-            print("hit");
-            hit.collider.transform.position = newDeflectorPos + Vector3.left*2;
-            //hit.collider.rigidbody.velocity = -hit.collider.rigidbody.velocity;
 
-            GameAudio.play("thud");
+            Bullet b = hit.collider.GetComponent<Bullet>();
+            if(isBlue && !b.isBlue || !isBlue && b.isBlue) {     // blue deflector and red ball OR red deflector and blue ball
+                GameAudio.playThud(transform.position);
+
+                //print("hit");
+                float pad = 2.1f;
+                Vector3 offset = Vector3.zero;
+                if(hit.collider.transform.position.x > newDeflectorPos.x) {
+                    offset = Vector3.left * pad;
+                }
+                else if(hit.collider.transform.position.x < newDeflectorPos.x) {
+                    offset = Vector3.right * pad;
+                }
+                else {
+                    // landed on top... now what???
+                }
+
+
+
+                hit.collider.transform.position = newDeflectorPos + offset;
+                //hit.collider.rigidbody.velocity = -hit.collider.rigidbody.velocity;
+            }
         }
     }
 
@@ -90,7 +110,7 @@ public class Deflector : MonoBehaviour {
 
     void checkBallCollision() {
         for(int i=-17; i < 17; ++i) {
-            Vector3 pos = new Vector3(transform.position.x, transform.position.y + i, transform.position.z);
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y + i, transform.position.z);    // TODO: raycast in vertical direction also
             Vector3 newPos = new Vector3(newDeflectorPos.x, newDeflectorPos.y + i, newDeflectorPos.z);
             Vector3 direction = newPos - pos;
 

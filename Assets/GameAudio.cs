@@ -4,8 +4,8 @@ using System.Collections;
 public class GameAudio : MonoBehaviour {
 
     GameObject _bgMusic, _thud, _score, audioHolder;
-    public static AudioSource bgMusic, thud, score;
-
+    static AudioSource bgMusic, thud, score;
+    
 	void Awake(){
         audioHolder = new GameObject("_AudioHolder");
         audioHolder.AddComponent<AudioListener>();
@@ -13,6 +13,9 @@ public class GameAudio : MonoBehaviour {
         setSound(ref _bgMusic, ref bgMusic, "victory");
         setSound(ref _score, ref score, "enchant");
         setSound(ref _thud, ref thud, "thud");
+
+        bgMusic.loop = true;
+        bgMusic.volume = 0.11f;
 	}
 
     void setSound(ref GameObject holder, ref AudioSource src, string clip){
@@ -22,11 +25,6 @@ public class GameAudio : MonoBehaviour {
         src = holder.AddComponent<AudioSource>();
         src.playOnAwake = false;
         src.clip = Resources.Load<AudioClip>("Audio/" + clip);
-
-        if(clip == "victory") {
-            src.loop = true;
-            src.volume = 0.45f;
-        }
     }
 
     public static void play(string clip){
@@ -34,12 +32,22 @@ public class GameAudio : MonoBehaviour {
             case "bgMusic":
                 bgMusic.audio.Play();
                 break;
-            case "score":
-                score.audio.Play();
-                break;
-            case "thud":
-                thud.audio.Play();
-                break;
         }
+    }
+
+    public static void playThud(Vector3 point) {
+        thud.pan = point.x / 256;
+        thud.Play();
+    }
+
+    public static void playScore(bool isLeft) {
+        if(isLeft) {
+            score.pan = -0.85f;
+        }
+        else {
+            score.pan = 0.85f;
+        }
+
+        score.audio.Play();
     }
 }
