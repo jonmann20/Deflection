@@ -8,11 +8,19 @@ public class Goal : MonoBehaviour {
     void OnTriggerEnter(Collider col) {
         if(col.gameObject.tag == "Bullet") {
             if(isBlue) {
-                ++Battle.numPointsBlue;
+                --Battle.numPointsBlue;
             }
             else {
-                ++Battle.numPointsRed;
+                --Battle.numPointsRed;
             }
+
+            Destroy(col.gameObject);
+            playGoalAnimation();
         }
+    }
+
+
+    void playGoalAnimation() {
+        GameAudio.play("score");
     }
 }

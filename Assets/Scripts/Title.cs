@@ -20,7 +20,7 @@ public class Title : MonoBehaviour {
         Utils.placeTxt("Player 1 (blue): WASD movement", size, Utils.HALFW, Utils.FULLH/1.7f);
         Utils.placeTxt("Player 2 (red):  Arrow Keys movement", size, Utils.HALFW, Utils.FULLH/1.5f);
         Utils.placeTxt("Goal: keep the other player from scoring " + Battle.NUM_TO_WIN + " points", size, Utils.HALFW, Utils.FULLH/1.25f);
-        Utils.placeTxt("(block the opposing color balls)", size, Utils.HALFW, Utils.FULLH/1.15f);
+        Utils.placeTxt("(block the opposing color's balls from crossing the goal line)", size, Utils.HALFW, Utils.FULLH/1.15f);
     }
 }
 

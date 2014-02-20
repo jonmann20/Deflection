@@ -86,7 +86,7 @@ GameObject:
   - 64: {fileID: 226243360}
   - 23: {fileID: 226243359}
   - 114: {fileID: 226243362}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: bGoal
   m_TagString: goalRed
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d3f58b51ec3588f439687435899c3b50, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -225,7 +225,7 @@ GameObject:
   - 64: {fileID: 589427775}
   - 23: {fileID: 589427774}
   - 114: {fileID: 589427777}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: rGoal
   m_TagString: goalRed
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2a3c21c378e8da646890808b015e6a40, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -307,11 +307,11 @@ GameObject:
   - 20: {fileID: 600621106}
   - 124: {fileID: 600621105}
   - 92: {fileID: 600621104}
-  - 81: {fileID: 600621103}
   - 45: {fileID: 600621109}
   - 114: {fileID: 600621110}
   - 114: {fileID: 600621111}
   - 114: {fileID: 600621112}
+  - 114: {fileID: 600621108}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: Untagged
@@ -319,13 +319,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &600621103
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 600621102}
-  m_Enabled: 1
 --- !u!92 &600621104
 Behaviour:
   m_ObjectHideFlags: 0
@@ -380,6 +373,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &600621108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 600621102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b151149b0c1474abbb0dc880f440b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!45 &600621109
 Skybox:
   m_ObjectHideFlags: 0

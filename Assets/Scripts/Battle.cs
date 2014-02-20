@@ -6,8 +6,9 @@ public class Battle : MonoBehaviour {
 
     public static Battle that;
 
-    public static int numPointsBlue = 0, numPointsRed = 0;
+    
     public static int NUM_TO_WIN = 15;
+    public static int numPointsBlue = NUM_TO_WIN, numPointsRed = NUM_TO_WIN;
 
     public static bool didBlueWin = false;
 
@@ -15,20 +16,24 @@ public class Battle : MonoBehaviour {
         that = this;
     }
 
+    void Start() {
+        GameAudio.play("bgMusic");
+    }
+
     void Update() {
-        if(numPointsBlue >= NUM_TO_WIN) {
+        if(numPointsBlue <= 0) {
             finish(false);
         }
 
-        if(numPointsRed >= NUM_TO_WIN) {
+        if(numPointsRed <= 0) {
             finish(true);
         }
     }
 
     void finish(bool b) {
         didBlueWin = b;
-        numPointsBlue = 0;
-        numPointsRed = 0;
+        numPointsBlue = NUM_TO_WIN;
+        numPointsRed = NUM_TO_WIN;
         Application.LoadLevel("end");
     }
 

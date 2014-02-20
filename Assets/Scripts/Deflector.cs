@@ -67,6 +67,8 @@ public class Deflector : MonoBehaviour {
             print("hit");
             hit.collider.transform.position = newDeflectorPos + Vector3.left*2;
             //hit.collider.rigidbody.velocity = -hit.collider.rigidbody.velocity;
+
+            GameAudio.play("thud");
         }
     }
 

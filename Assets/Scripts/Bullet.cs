@@ -36,6 +36,8 @@ public class Bullet : MonoBehaviour {
 
             print("col");
             rigidbody.velocity = -rigidbody.velocity;
+
+            GameAudio.play("thud");
         }
         else {
             Destroy(gameObject, 0.15f);
