@@ -18,7 +18,7 @@ RenderSettings:
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientLight: {r: .0278248638, g: .0294117928, b: .000648790156, a: 1}
+  m_AmbientLight: {r: .176470578, g: .176470578, b: .176470578, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: .5
   m_FlareStrength: 1
@@ -307,7 +307,6 @@ GameObject:
   - 20: {fileID: 600621106}
   - 124: {fileID: 600621105}
   - 92: {fileID: 600621104}
-  - 45: {fileID: 600621109}
   - 114: {fileID: 600621110}
   - 114: {fileID: 600621111}
   - 114: {fileID: 600621112}
@@ -384,14 +383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e93ee91f23173164590a1d71aa7c2302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!45 &600621109
-Skybox:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 600621102}
-  m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 16522f49031ff414abdf1f83f1b6a36c, type: 2}
 --- !u!114 &600621110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +661,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294961896
+    m_Bits: 4294937320
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0
@@ -683,7 +674,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1288764037}
-  m_LocalRotation: {x: .265666574, y: .3059645, z: .0351987146, w: .913546979}
+  m_LocalRotation: {x: .233298779, y: .312980533, z: .0483048409, w: .91939193}
   m_LocalPosition: {x: 115.19809, y: -317.673615, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -878,6 +869,68 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1366095443}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1393519715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1393519717}
+  - 108: {fileID: 1393519716}
+  m_Layer: 0
+  m_Name: BulletLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &1393519716
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1393519715}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Type: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_Softness: 4
+    m_SoftnessFade: 1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_ActuallyLightmapped: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294959336
+  m_Lightmapping: 1
+  m_ShadowSamples: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_IndirectIntensity: 1
+  m_AreaSize: {x: 1, y: 1}
+--- !u!4 &1393519717
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1393519715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 100, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1474672474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,8 +1255,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 3
   m_Type: 1
-  m_Color: {r: 1, g: .978904665, b: .808823526, a: 1}
-  m_Intensity: .5
+  m_Color: {r: .992647052, g: .98942548, b: .963451564, a: 1}
+  m_Intensity: .579999983
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1221,7 +1274,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294959615
+    m_Bits: 4294935039
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0
@@ -1350,7 +1403,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294964456
+    m_Bits: 4294939880
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0

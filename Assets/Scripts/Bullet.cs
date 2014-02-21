@@ -7,6 +7,15 @@ public class Bullet : MonoBehaviour {
 
     public bool isBlue;
 
+    void Awake(){
+        if(isBlue) {
+            renderer.material.color = new Color(78/255.0f, 131/255.0f, 170/255.0f);
+        }
+        else {
+            renderer.material.color = new Color(191/255.0f, 79/255.0f, 46/255.0f);
+        }
+    }
+
 
     void Update(){
         if(transform.position.y < -90) {
