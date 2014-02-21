@@ -26,7 +26,7 @@ public class Clock : MonoBehaviour {
         updateTimeDisplay();
 
         Utils.scaleGUI();
-        Utils.placeTxt(strTime, 40, Utils.HALFW, 55, true);
+        Utils.placeTxt(strTime, 40, Utils.HALFW, 55);
         Utils.placeTxt("Min time between shots: " + TurretController.minTimeBtwShots.ToString("f2") + " sec", 30, 285, Utils.FULLH - 45, true);
         Utils.placeTxt("Deflector height: " + Deflector.that.transform.localScale.x.ToString("f2"), 30, 316, Utils.FULLH - 15, true);
 
