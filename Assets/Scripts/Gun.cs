@@ -12,11 +12,9 @@ public class Gun : MonoBehaviour {
 	float halfW;
 	
 	float minDeg, maxDeg;
-    float bulletSpeed = 250;
+    float bulletSpeed = 237;
 
 	void Awake(){
-		
-
         if(isBlue) {
             bulletPrefab = Resources.Load<Rigidbody>("BulletBlue");
             controller = gameObject.AddComponent<TurretController>();
@@ -51,8 +49,7 @@ public class Gun : MonoBehaviour {
 	#region Public Actions
 
 	public void shoot(){
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        Rigidbody projectile = Instantiate(bulletPrefab, pos, transform.rotation) as Rigidbody;
+        Rigidbody projectile = Instantiate(bulletPrefab, transform.position, transform.rotation) as Rigidbody;
 
         float x = getBulletVelocityX();
         float y = getBulletVelocityY();
@@ -90,10 +87,10 @@ public class Gun : MonoBehaviour {
 
         // make more horizontal velocity
         if(isBlue) {
-            vx += 24;
+            vx += 29;
         }
         else {
-            vx -= 24;
+            vx -= 29;
         }
 
         return vx;

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 	
+    // TODO: z-index
+
     public bool isBlue;
 
 
@@ -28,13 +30,7 @@ public class Bullet : MonoBehaviour {
     //}
 	
 	void OnCollisionEnter(Collision col){
-        if(col.gameObject.tag == "Deflector") {
-            GameAudio.playThud(transform.position);
-            
-            //print("col");
-            rigidbody.velocity = -(rigidbody.velocity * 1.32f);
-        }
-        else {
+        if(col.gameObject.tag != "Deflector") {
             Destroy(gameObject, 0.15f);
         }
 	}

@@ -13,6 +13,8 @@ public class TurretController : GunController {
     float dtAngle = 0;
     Dir dir = Dir.NONE;
 
+    public static float minTimeBtwShots = 1.3f;
+
     public override void CheckInput() {
         if(isMoving) {
             doMovement();
@@ -55,7 +57,7 @@ public class TurretController : GunController {
             newAngle = gun.transform.eulerAngles.z - angleOffset;
         }
 
-        timeOffset = Random.Range(1.5f, 2.1f);
+        timeOffset = Random.Range(minTimeBtwShots, 1.7f);
 
         isMoving = true;
         getNewAngle = false;

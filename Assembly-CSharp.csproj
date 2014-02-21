@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{6ACC08F2-79D1-4B86-255C-E89A2C2A58D6}</ProjectGuid>
+	<ProjectGuid>{D6E954F0-31DD-5506-05FA-BE20E673B18F}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -46,8 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DontGoThroughThings.cs" />
-     <Compile Include="Assets\GameAudio.cs" />
      <Compile Include="Assets\Scripts\Battle.cs" />
      <Compile Include="Assets\Scripts\BattleComplete.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
@@ -55,6 +53,7 @@
      <Compile Include="Assets\Scripts\Controller\GunController.cs" />
      <Compile Include="Assets\Scripts\Controller\TurretController.cs" />
      <Compile Include="Assets\Scripts\Deflector.cs" />
+     <Compile Include="Assets\Scripts\GameAudio.cs" />
      <Compile Include="Assets\Scripts\Goal.cs" />
      <Compile Include="Assets\Scripts\Gun.cs" />
      <Compile Include="Assets\Scripts\Title.cs" />

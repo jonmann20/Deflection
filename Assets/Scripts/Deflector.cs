@@ -3,65 +3,83 @@ using System.Collections;
 
 public class Deflector : MonoBehaviour {
 
+    // TODO: z-index
+
     public bool isBlue = false;
 
-    float edge = 288;
-    float dtX = 60;
+    float dtX = 51;
     float dtY = 30;
+
+    float extraVx = 1.18f;
 
     Vector3 newDeflectorPos;
 
+    bool flippedVx = false;
+
+    public static Deflector that;
+
     void Awake() {
+        that = this;
         newDeflectorPos = transform.position;
     }
 
 	void Update () {
         //----- Position
-
         if(isBlue) {
             if(Input.GetKeyDown(KeyCode.A)) {
-                newDeflectorPos = transform.position;
-                newDeflectorPos.x -= dtX;
+                getNewX(-dtX);
             }
+
             if(Input.GetKeyDown(KeyCode.D)) {
-                newDeflectorPos = transform.position;
-                newDeflectorPos.x += dtX;
+                getNewX(dtX);
             }
+
             if(Input.GetKeyDown(KeyCode.W)) {
-                newDeflectorPos = transform.position;
-                newDeflectorPos.y += dtY;
+                getNewY(dtY);
             }
+
             if(Input.GetKeyDown(KeyCode.S)) {
-                newDeflectorPos = transform.position;
-                newDeflectorPos.y -= dtY;
+                getNewY(-dtY);
             }
         }
         else {
             if(Input.GetKeyDown(KeyCode.LeftArrow)) {
-                newDeflectorPos = transform.position;
-                newDeflectorPos.x -= dtX;
+                getNewX(-dtX);
             }
+
             if(Input.GetKeyDown(KeyCode.RightArrow)) {
-                newDeflectorPos = transform.position;
-                newDeflectorPos.x += dtX;
+                getNewX(dtX);
             }
+
             if(Input.GetKeyDown(KeyCode.UpArrow)) {
-                newDeflectorPos = transform.position;
-                newDeflectorPos.y += dtY;
+                getNewY(dtY);
             }
+
             if(Input.GetKeyDown(KeyCode.DownArrow)) {
-                newDeflectorPos = transform.position;
-                newDeflectorPos.y -= dtY;
+                getNewY(-dtY);
             }
         }
 
-        checkScreenEdgeCollision();
         checkBallCollision();
+        flippedVx = false;
 	}
 
     void FixedUpdate() {
         // move
         rigidbody.MovePosition(newDeflectorPos);
+    }
+
+    
+    void OnCollisionEnter(Collision c) {
+        if(c.gameObject.tag == "Bullet") {
+            //print("defl");
+
+            GameAudio.playThud(c.transform.position);
+            
+            // reverse x direction
+            c.rigidbody.velocity = new Vector3(-(c.rigidbody.velocity.x * extraVx), c.rigidbody.velocity.y, 0);
+            flippedVx = true;
+        }
     }
 
     void handleBallCollision(RaycastHit hit){
@@ -72,39 +90,74 @@ public class Deflector : MonoBehaviour {
                 GameAudio.playThud(transform.position);
 
                 //print("hit");
-                float pad = 2.1f;
+                float pad = 5.1f;
                 Vector3 offset = Vector3.zero;
                 if(hit.collider.transform.position.x > newDeflectorPos.x) {
                     offset = Vector3.left * pad;
+
+                    // ball was headed away from deflector
+                    if(!flippedVx) {
+                        hit.collider.rigidbody.velocity = new Vector3((hit.collider.rigidbody.velocity.x * extraVx), hit.collider.rigidbody.velocity.y, 0);
+                    }
                 }
                 else if(hit.collider.transform.position.x < newDeflectorPos.x) {
                     offset = Vector3.right * pad;
+                    
+                    // ball was headed toward deflector
+                    if(!flippedVx) {
+                        hit.collider.rigidbody.velocity = new Vector3(-(hit.collider.rigidbody.velocity.x * extraVx), hit.collider.rigidbody.velocity.y, 0);
+                    }
                 }
                 else {
                     // landed on top... now what???
                 }
 
-
-
                 hit.collider.transform.position = newDeflectorPos + offset;
-                //hit.collider.rigidbody.velocity = -hit.collider.rigidbody.velocity;
+                
             }
         }
     }
 
-    void checkScreenEdgeCollision() {
-        if(transform.position.y > 271) {
-            transform.position = new Vector3(transform.position.x, 271, transform.position.z);
-        }
-        else if(transform.position.y < 5) {
-            transform.position = new Vector3(transform.position.x, 5, transform.position.z);
-        }
+    void getNewX(float dtX) {
+        newDeflectorPos = transform.position;
 
-        if(transform.position.x > edge) {
-            transform.position = new Vector3(edge, transform.position.y, transform.position.z);
+        int maxCrossOver = 48;
+
+        if(isBlue) {
+            if(newDeflectorPos.x + dtX >= maxCrossOver) {
+                newDeflectorPos.x = maxCrossOver;
+            }
+            else if(newDeflectorPos.x + dtX <= -268) {
+                newDeflectorPos.x = -268;
+            }
+            else {  // in between
+                newDeflectorPos.x += dtX;
+            }
         }
-        else if(transform.position.x < -edge) {
-            transform.position = new Vector3(-edge, transform.position.y, transform.position.z);
+        else {
+            if(newDeflectorPos.x + dtX >= 268) {
+                newDeflectorPos.x = 268;
+            }
+            else if(newDeflectorPos.x + dtX <= -maxCrossOver) {
+                newDeflectorPos.x = -maxCrossOver;
+            }
+            else {  // in between
+                newDeflectorPos.x += dtX;
+            }
+        }
+    }
+
+    void getNewY(float dtY){
+        newDeflectorPos = transform.position;
+
+        if(newDeflectorPos.y + dtY >= 271) {
+            newDeflectorPos.y = 271;
+        }
+        else if(newDeflectorPos.y + dtY <= 5) {
+            newDeflectorPos.y = 5;
+        }
+        else {   // in between
+            newDeflectorPos.y += dtY;
         }
     }
 
