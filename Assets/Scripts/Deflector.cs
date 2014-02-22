@@ -169,7 +169,7 @@ public class Deflector : MonoBehaviour {
 
             Ray ray = new Ray(pos, direction);
 
-            Debug.DrawRay(pos, direction);
+            //Debug.DrawRay(pos, direction);
 
             RaycastHit rayCastHit;
             if(Physics.Raycast(ray, out rayCastHit, direction.magnitude)) {
