@@ -25,7 +25,7 @@ public class Gun : MonoBehaviour {
         }
 
 		initPos = transform.position;
-		halfW = renderer.bounds.size.x/2;
+		halfW = GetComponent<Renderer>().bounds.size.x/2;
 
         if(isBlue) {
 			halfW *= -1;
@@ -60,7 +60,7 @@ public class Gun : MonoBehaviour {
     public void rotateBy(float dtAngle) {
         if(transform.eulerAngles.z + dtAngle > minDeg && transform.eulerAngles.z + dtAngle < maxDeg) {
             transform.RotateAround(
-                new Vector3(initPos.x + halfW, initPos.y - renderer.bounds.size.y/2),
+                new Vector3(initPos.x + halfW, initPos.y - GetComponent<Renderer>().bounds.size.y/2),
                 Vector3.forward,
                 dtAngle
             );

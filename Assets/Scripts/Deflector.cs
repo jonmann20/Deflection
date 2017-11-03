@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class Deflector : MonoBehaviour {
-
     // TODO: z-index
 
     public bool isBlue = false;
@@ -23,7 +22,7 @@ public class Deflector : MonoBehaviour {
         newDeflectorPos = transform.position;
     }
 
-	void Update () {
+	void Update() {
         //----- Position
         if(isBlue) {
             if(Input.GetKeyDown(KeyCode.A)) {
@@ -66,14 +65,12 @@ public class Deflector : MonoBehaviour {
 
     void FixedUpdate() {
         // move
-        rigidbody.MovePosition(newDeflectorPos);
+        GetComponent<Rigidbody>().MovePosition(newDeflectorPos);
     }
 
     
     void OnCollisionEnter(Collision c) {
         if(c.gameObject.tag == "Bullet") {
-            //print("defl");
-
             GameAudio.playThud(c.transform.position);
             
             // reverse x direction
@@ -82,14 +79,13 @@ public class Deflector : MonoBehaviour {
         }
     }
 
-    void handleBallCollision(RaycastHit hit){
+    void handleBallCollision(RaycastHit hit) {
         if(hit.collider.gameObject.tag == "Bullet") {
 
             Bullet b = hit.collider.GetComponent<Bullet>();
             if(isBlue && !b.isBlue || !isBlue && b.isBlue) {     // blue deflector and red ball OR red deflector and blue ball
                 GameAudio.playThud(transform.position);
 
-                //print("hit");
                 float pad = 5.1f;
                 Vector3 offset = Vector3.zero;
                 if(hit.collider.transform.position.x > newDeflectorPos.x) {
@@ -97,7 +93,7 @@ public class Deflector : MonoBehaviour {
 
                     // ball was headed away from deflector
                     if(!flippedVx) {
-                        hit.collider.rigidbody.velocity = new Vector3((hit.collider.rigidbody.velocity.x * extraVx), hit.collider.rigidbody.velocity.y, 0);
+                        hit.collider.GetComponent<Rigidbody>().velocity = new Vector3((hit.collider.GetComponent<Rigidbody>().velocity.x * extraVx), hit.collider.GetComponent<Rigidbody>().velocity.y, 0);
                     }
                 }
                 else if(hit.collider.transform.position.x < newDeflectorPos.x) {
@@ -105,7 +101,7 @@ public class Deflector : MonoBehaviour {
                     
                     // ball was headed toward deflector
                     if(!flippedVx) {
-                        hit.collider.rigidbody.velocity = new Vector3(-(hit.collider.rigidbody.velocity.x * extraVx), hit.collider.rigidbody.velocity.y, 0);
+                        hit.collider.GetComponent<Rigidbody>().velocity = new Vector3(-(hit.collider.GetComponent<Rigidbody>().velocity.x * extraVx), hit.collider.GetComponent<Rigidbody>().velocity.y, 0);
                     }
                 }
                 else {
@@ -147,7 +143,7 @@ public class Deflector : MonoBehaviour {
         }
     }
 
-    void getNewY(float dtY){
+    void getNewY(float dtY) {
         newDeflectorPos = transform.position;
 
         if(newDeflectorPos.y + dtY >= 271) {

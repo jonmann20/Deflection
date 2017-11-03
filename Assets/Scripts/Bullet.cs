@@ -9,10 +9,10 @@ public class Bullet : MonoBehaviour {
 
     void Awake(){
         if(isBlue) {
-            renderer.material.color = new Color(78/255.0f, 131/255.0f, 170/255.0f);
+            GetComponent<Renderer>().material.color = new Color(78/255.0f, 131/255.0f, 170/255.0f);
         }
         else {
-            renderer.material.color = new Color(191/255.0f, 79/255.0f, 46/255.0f);
+            GetComponent<Renderer>().material.color = new Color(191/255.0f, 79/255.0f, 46/255.0f);
         }
     }
 

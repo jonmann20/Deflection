@@ -30,24 +30,24 @@ public class GameAudio : MonoBehaviour {
     public static void play(string clip){
         switch(clip) {
             case "bgMusic":
-                bgMusic.audio.Play();
+                bgMusic.GetComponent<AudioSource>().Play();
                 break;
         }
     }
 
     public static void playThud(Vector3 point) {
-        thud.pan = point.x / 256;
+        thud.panStereo = point.x / 256;
         thud.Play();
     }
 
     public static void playScore(bool isLeft) {
         if(isLeft) {
-            score.pan = -0.85f;
+            score.panStereo = -0.85f;
         }
         else {
-            score.pan = 0.85f;
+            score.panStereo = 0.85f;
         }
 
-        score.audio.Play();
+        score.GetComponent<AudioSource>().Play();
     }
 }
